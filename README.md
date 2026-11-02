@@ -47,3 +47,9 @@ cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条�
 `report/05` 第六节推测"后端可能属对面公司"——**错的，我方就是万年历/重庆可兰达本体**。
 更关键的是：**生产业务 API 活在 `link.tttick.com`，后端不需要重写**，重建客户端把 baseUrl 指过去即可
 （`gradle :net:liveVerify --args=https://link.tttick.com/` 已实测 200）。详见 `report/06_backend_alive_and_ownership_CN.md`。
+
+## 2026-11-02 再更新：布局与文案已整体迁入
+
+新增 `rebuild/res166/`：1.6.6 的 3982 个资源文件（936 布局、2169 条文案），`:app` 依赖它后可直接引用。
+`gradle :app:assembleDebug` 产出 50.6MB APK（937 布局入包、2272 条 string）。
+坑与约束见 `report/07_resource_migration_CN.md`。注：该 APK 能否正常启动仍需真机验（本机无设备）。

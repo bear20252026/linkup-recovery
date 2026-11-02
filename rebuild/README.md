@@ -45,3 +45,12 @@ sh tools/stage_assets.sh   # 打印重建这些输入所需的四条命令
 ```
 
 `net/` 模块不依赖 assets，clone 后直接 `sh tools/gradle.sh :net:test` 即可跑离线回归。
+
+## 资源银行 `:res166`
+
+1.6.6 的 `res/` 整棵已迁入（3982 文件：936 布局、2169 条默认文案 + 中文变体）。
+`R.layout.activity_login` / `R.string.input_address_tag_hint` 在 `:app` 里直接可解析。
+
+注意：`:res166` 里已含 AppCompat/Material 的 attrs/styles 副本，**`:app` 不要再加 androidx UI 依赖**，
+否则 `attr/navigationMode` 之类会重复定义而链接失败。将来要加回 AAR，先做库自有资源剥离。
+详见 `../report/07_resource_migration_CN.md`。
