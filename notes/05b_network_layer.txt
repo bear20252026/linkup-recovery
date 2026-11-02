@@ -1,0 +1,177 @@
+[*] Loading APK ...
+[+] Loaded
+
+=== 业务包字符串中的 URL ===
+  total: 41
+  [com.youloft.watcher.utils.ConfigUtils]
+    http://192.168.1.110:8005/api/config/getconfigs
+  [com.youloft.watcher.manager.r2]
+    http://api.ipify.org
+  [com.byazt.iu.i]
+    http://xmlpull.org/v1/doc/features.html#indent-output
+  [com.smartdigimkt.j2.b]
+    http://xmlpull.org/v1/doc/features.html#process-namespaces
+  [com.byazt.lz.mf]
+    https://%s
+  [com.byazt.lz.mf]
+    https://%s%s
+  [com.byazt.lz.g]
+    https://api-access.pangolin-sdk-toutiao.com
+  [com.byazt.rmy.f]
+    https://api-access.pangolin-sdk-toutiao.com/api/ad/union/sdk/settings/plugins
+  [com.byazt.qd.a]
+    https://api-access.pangolin-sdk-toutiao.com/v2/inspect/aegis/client/page/
+  [com.byazt.fpg.m]
+    https://apmplus.volces.com/apm/collect/crash
+  [com.byazt.fpg.m]
+    https://apmplus.volces.com/monitor/collect/c/session
+  [com.byazt.bx.i]
+    https://apps.bytesfield-b.com
+  [com.byazt.bx.i]
+    https://apps.bytesfield.com
+  [com.byazt.bx.m]
+    https://apps.oceanengine.com/customer/api/app/pkg_info?
+  [com.youloft.watcher.manager.SdkInitManager]
+    https://dmp-test.51wnl-cq.com
+  [com.youloft.yftracker.Constant]
+    https://dmp.51wnl-cq.com
+  [com.byazt.oh.v$1]
+    https://id6.me/gw/preuniq.do
+  [com.youloft.watcher.pages.test.TestLocationMockActivity]
+    https://lovetest-oss-volcengine.51wnl-cq.com/watcher/CMS/test/location.txt
+  [com.byazt.oh.v$1]
+    https://msg.cmpassport.com/h5/getMobile
+  [com.byazt.oh.v$1]
+    https://nisportal.10010.com:9001/api?appid=1554778161154
+  [com.byazt.dw.h]
+    https://phoniex.toutiao.com
+  [com.smartdigimkt.sdk.basead.mraid.MraidBaseWebView]
+    https://play.google.com
+  [com.smartdigimkt.u.d]
+    https://play.google.com/store/apps/details?id=
+  [com.byazt.cs.EcBackUpWebView]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/ad-pattern/pattern-aggregation/pattern-aggregation-eCommerce-abtest/shoppingMall-defaultPage/index.html
+  [com.byazt.qd.a]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/ad-pattern/renderer/package.json
+  [com.byazt.cf.v]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/ad-pattern/static/images/
+  [com.byazt.uo.DynamicLottieView]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/ad-pattern/static/lotties/
+  [com.byazt.qd.a]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/csj_assets/
+  [com.byazt.wm.xr]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/csj_assets/brush_mask.json
+  [com.byazt.wm.xr]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/csj_assets/swiper_up_star.json
+  [com.byazt.gb.f]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/test-tool/0.0.4/html/ad_preview.html
+  [com.byazt.gb.f]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/test-tool/0.0.4/html/adn_detail.html
+  [com.byazt.gb.f]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/test-tool/0.0.4/html/basic_info.html
+  [com.byazt.gb.f]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/test-tool/0.0.4/html/codeid_detail.html
+  [com.byazt.gb.f]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/test-tool/0.0.4/html/rit_detail.html
+  [com.byazt.ex.v]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/uchain/20103/uchain_dsl.bin
+  [com.byazt.tr.gq]
+    https://sf3-fe-tos.pglstatp-toutiao.com/obj/csj-sdk-static/ugeno-source/download_hand_tap.json
+  [com.byazt.bx.AppPrivacyPolicyActivity]
+    https://sf6-ttcdn-tos.pstatp.com/obj/ad-tetris-site/personal-privacy-page.html
+  [com.youloft.watcher.manager.SdkInitManager]
+    https://ss.51wnl.com
+  [com.byazt.dw.a]
+    https://www.pangle.cn/privacy/partner
+  [com.byazt.uq.f]
+    https://www.samsungapps.com/appquery/appDetail.as?appId=
+
+=== 业务包中加密/签名相关方法（按方法名匹配） ===
+  com.byazt.bzc.i::readUnsignedByte()I
+  com.byazt.bzc.i::readUnsignedShort()I
+  com.byazt.bzc.h::readUnsignedByte()I
+  com.byazt.bzc.h::readUnsignedShort()I
+  com.byazt.wf.v::decrypt(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.wf.v::encrypt(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.he.v::decrypt(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.he.v::encrypt(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.i.DownloadInfo::checkMd5Status()I
+  com.byazt.i.DownloadInfo::checkMd5Valid()Z
+  com.byazt.i.DownloadInfo::getMd5()Ljava/lang/String;
+  com.byazt.i.DownloadInfo::getTTMd5CheckStatus()I
+  com.byazt.i.DownloadInfo::isIgnoreDataVerify()Z
+  com.byazt.i.DownloadInfo::setMd5(Ljava/lang/String;)V
+  com.byazt.i.DownloadInfo::setTTMd5CheckStatus(I)V
+  com.byazt.i.DownloadTask::md5(Ljava/lang/String;)Lcom/byazt/i/DownloadTask;
+  com.byazt.kd.p::getSignature()[B
+  com.byazt.nv.v$1::onTokenLoaded(Ljava/lang/String;)V
+  com.byazt.oy.a::getEncrypt(I)Lcom/byazt/wf/v;
+  com.byazt.oy.f::encrypt([B I)[B
+  com.byazt.oy.v::decrypt([B)[B
+  com.byazt.oy.v::decryptWithCBC(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.oy.v::encrypt([B)[B
+  com.byazt.oy.v::signVerifyMD5withRSA(Ljava/lang/String; Ljava/lang/String;)Z
+  com.byazt.oy.te::decrypt([B)[B
+  com.byazt.oy.te::decryptWithCBC(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.oy.te::encrypt([B)[B
+  com.byazt.oy.te::encryptBody(Lorg/json/JSONObject;)Ljava/lang/String;
+  com.byazt.oy.te::signVerifyMD5withRSA(Ljava/lang/String; Ljava/lang/String;)Z
+  com.byazt.oy.y::getEncrypt(I)Lcom/byazt/wf/v;
+  com.byazt.ym.v$gq::getBiddingToken(Lcom/bytedance/sdk/openadsdk/AdSlot;)Ljava/lang/String;
+  com.byazt.ym.v$gq::getBiddingToken(Lcom/bytedance/sdk/openadsdk/AdSlot; Z I)Ljava/lang/String;
+  com.byazt.s.AdDownloadModel$Builder::setMd5(Ljava/lang/String;)Lcom/byazt/s/AdDownloadModel$Builder;
+  com.byazt.z.DownloadModel::getMd5()Ljava/lang/String;
+  com.byazt.s.AdDownloadModel::getMd5()Ljava/lang/String;
+  com.byazt.s.AdDownloadModel::setMd5(Ljava/lang/String;)V
+  com.byazt.wf.m::decrypt(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.wf.m::encrypt(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.wo.m::decrypt([B)[B
+  com.byazt.wo.m::decryptWithCBC(Ljava/lang/String;)Ljava/lang/String;
+  com.byazt.wo.m::encrypt([B)[B
+  com.byazt.wo.m::signVerifyMD5withRSA(Ljava/lang/String; Ljava/lang/String;)Z
+  com.byazt.wo.te::getEncrypt(I)Lcom/byazt/wf/v;
+  com.byazt.xm.e::getDefaultCipherSuites()[Ljava/lang/String;
+  com.byazt.xm.e::getSupportedCipherSuites()[Ljava/lang/String;
+  com.smartdigimkt.sdk.api.ISDMAdManager::getBidTokenJSONObject(Ljava/util/Map; Lcom/smartdigimkt/sdk/api/ISDMAdManager$BidTokenCallBack;)V
+  com.smartdigimkt.sdk.api.ISDMAdManager::getDirectlyBidTokenJSONObject(Landroid/content/Context; Ljava/util/Map; Ljava/util/Map;)Lorg/json/JSONObject;
+  com.smartdigimkt.s3.b::getBidTokenJSONObject(Ljava/util/Map; Lcom/smartdigimkt/sdk/api/ISDMAdManager$BidTokenCallBack;)V
+  com.smartdigimkt.s3.b::getDirectlyBidTokenJSONObject(Landroid/content/Context; Ljava/util/Map; Ljava/util/Map;)Lorg/json/JSONObject;
+  com.smartdigimkt.sdk.api.SDMInitConfig::getAppKey()Ljava/lang/String;
+  com.smartdigimkt.sdk.api.SDMUserDeviceInfo::getDevUID2Token()Ljava/lang/String;
+  com.smartdigimkt.sdk.api.SDMUserDeviceInfo::setDevUID2Token(Ljava/lang/String;)V
+  com.smartdigimkt.sdk.api.format.SDMAdEcpmInfo::getSecretId()I
+  com.smartdigimkt.sdk.basead.mraid.MraidBaseWebView::getSignalCommunication()Lcom/smartdigimkt/k1/a;
+  com.smartdigimkt.sdk.basead.mraid.MraidBaseWebView::setSignalCommunication(Lcom/smartdigimkt/k1/a;)V
+  com.smartdigimkt.sdk.core.bridge.entity.AppInfoEntity::getMediationAppKey()Ljava/lang/String;
+  com.smartdigimkt.sdk.core.bridge.entity.AppInfoEntity::setMediationAppKey(Ljava/lang/String;)V
+  com.smartdigimkt.v4.h$b::getSecretId()I
+  com.youloft.watcher.bean.TosToken::getSecretAccessKey()Ljava/lang/String;
+  com.youloft.watcher.bean.TosToken::getSessionToken()Ljava/lang/String;
+  com.youloft.watcher.bean.User::getToken()Ljava/lang/String;
+  com.youloft.watcher.bean.User::setToken(Ljava/lang/String;)V
+  com.youloft.watcher.bean.login.QQLogin::getAccess_token()Ljava/lang/String;
+  com.youloft.watcher.bean.login.QQLogin::getPay_token()Ljava/lang/String;
+  com.youloft.watcher.bean.login.WxToken::getAccessToken()Ljava/lang/String;
+  com.youloft.watcher.bean.login.WxToken::getRefreshToken()Ljava/lang/String;
+  com.youloft.watcher.bean.vip.WxPay::getSign()Ljava/lang/String;
+  com.youloft.watcher.service.push.im.HMSPushService::onNewToken(Ljava/lang/String;)V
+  com.youloft.watcher.service.push.im.HONORPushService::onNewToken(Ljava/lang/String;)V
+  com.youloft.yftracker.YfTrackerSDKImpl::getMtoken()Ljava/lang/String;
+  com.youloft.yftracker.YfTrackerSDKImpl::setMtoken(Ljava/lang/String;)V
+  com.youloft.yftracker.asdk.ASDKConfig::getAppKey()Ljava/lang/String;
+  com.youloft.yftracker.asdk.ASDKConfig::setAppKey(Ljava/lang/String;)V
+  com.youloft.yftracker.asdk.ASDKManager::access$bindToken(Lcom/youloft/yftracker/asdk/ASDKManager; Lcom/youloft/yftracker/protobuf/StsAuthResponseDto; Ljava/lang/String;)V
+  com.youloft.yftracker.asdk.ASDKManager::access$resetAkToken(Lcom/youloft/yftracker/asdk/ASDKManager; Landroid/content/Context; Z)V
+  com.youloft.yftracker.asdk.ASDKManager::bindToken(Lcom/youloft/yftracker/protobuf/StsAuthResponseDto; Ljava/lang/String;)V
+  com.youloft.yftracker.asdk.ASDKManager::resetAkToken(Landroid/content/Context; Z)V
+  com.youloft.yftracker.helpers.OkHttpManager::signatureGet(Ljava/lang/String;)Ljava/lang/String;
+  com.youloft.yftracker.protobuf.DeviceData::getAndroid_id_md5()Ljava/lang/String;
+  com.youloft.yftracker.protobuf.DeviceData::getImei_md5()Ljava/lang/String;
+  com.youloft.yftracker.protobuf.DeviceData::getOaid_md5()Ljava/lang/String;
+
+=== 业务包静态字段中的 URL/Host ===
+Traceback (most recent call last):
+  File "C:\Users\Elevoc\.claude-ctf-workspace\reverse\linkup\notes\05b_network_layer.py", line 71, in <module>
+    for f in cls.get_fields():
+             ^^^^^^^^^^^^^^
+AttributeError: 'ExternalClass' object has no attribute 'get_fields'
