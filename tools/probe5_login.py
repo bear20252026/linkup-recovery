@@ -15,7 +15,7 @@ def sign(si):
     return AES.new(KEY, AES.MODE_CBC, IV).encrypt(pad(si.encode(),16)).hex()
 print("===LOGIN_BEGIN===")
 qs="&".join(f"{k}={v}" for k,v in base_params())
-body={"typeId":1,"phone":PHONE,"smsCode":CODE,"region":"86"}
+body={"typeId":0,"phone":PHONE,"smsCode":CODE,"region":"86"}
 try:
     r=requests.post(f"{BASE}/api/user/login?{qs}",json=body,headers={"User-Agent":UA},timeout=10)
     print("login:",f"[{r.status_code}]",r.content[:600].decode('utf-8','replace'))
