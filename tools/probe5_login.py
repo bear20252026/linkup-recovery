@@ -5,7 +5,7 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 BASE="https://linkup-test.51wnl-cq.com"; UA="okhttp/4.9.3"
 KEY=IV=b"6R4aXTSK3OghHIgA"
-PHONE="15927132025"; CODE="8426"; DEV="probe0001device"
+PHONE="15927132025"; CODE="2365"; DEV="probe0001device"
 def base_params(uid="0"):
     return [("tz","480"),("lang","zh"),("userId",str(uid)),("client","android"),
         ("deviceId",DEV),("channel","official"),("av","1.6.6"),
