@@ -53,3 +53,9 @@ cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条�
 新增 `rebuild/res166/`：1.6.6 的 3982 个资源文件（936 布局、2169 条文案），`:app` 依赖它后可直接引用。
 `gradle :app:assembleDebug` 产出 50.6MB APK（937 布局入包、2272 条 string）。
 坑与约束见 `report/07_resource_migration_CN.md`。注：该 APK 能否正常启动仍需真机验（本机无设备）。
+
+## 2026-11-02 再更新：API 面已强类型
+
+`tools/gen_beans.py` 生成 79 个 data class，96/97 条路由有类型响应；两个 APK 都没保留 `@SerializedName`，
+说明线上 JSON key 就是字段名，并已用生产实时回包验证。测试 7 个全绿。
+`liveVerify` 修掉一个假绿隐患（旧版探测失败也返回成功）。详见 `report/08_typed_models_CN.md`。
