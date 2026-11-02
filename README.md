@@ -41,3 +41,9 @@ sh run_all.sh
 cd rebuild && sh tools/gradle.sh :net:test        # 5 个离线回归，锁住签名协议
 cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条签名请求
 ```
+
+## 2026-11-02 更正（重要）
+
+`report/05` 第六节推测"后端可能属对面公司"——**错的，我方就是万年历/重庆可兰达本体**。
+更关键的是：**生产业务 API 活在 `link.tttick.com`，后端不需要重写**，重建客户端把 baseUrl 指过去即可
+（`gradle :net:liveVerify --args=https://link.tttick.com/` 已实测 200）。详见 `report/06_backend_alive_and_ownership_CN.md`。
