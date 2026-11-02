@@ -15,19 +15,17 @@ jobs:
           set -e
           RID=$(gh run list -R bear20252026/linkup-recovery -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
           gh run download "$RID" -n linkup-166-src -D src -R bear20252026/linkup-recovery
-      - name: Hunt signature client
+      - name: Dump constants and client
         run: |
           echo "SRC_BEGIN"
-          echo "== P1 路由字面量所在文件 =="
-          P1=$(grep -rln '"api/user/login"' src/sources | head -5); echo "$P1"
-          echo "== P2 aes128Encrypt 调用方 =="
-          P2=$(grep -rln 'aes128Encrypt' src/sources | head -8); echo "$P2"
-          echo "== P3 引号Signature =="
-          P3=$(grep -rln '"Signature"' src/sources | head -8); echo "$P3"
-          echo "== P4 引用 f1732c 基址的文件 =="
-          grep -rln 'f1732c' src/sources | head -10
-          echo "== DUMP =="
-          for f in $(echo "$P1 $P2 $P3" | tr ' ' '\n' | sort -u | head -14); do echo "----- $f -----"; head -c 22000 "$f"; echo; done
-          echo "== STRUCTURE =="
-          find src/sources/com/youloft/watcher -maxdepth 1 | sort | head -40
-          echo "SRC_END"
+          echo "== utils/a.java (签名实现) =="
+          head -c 6000 src/sources/com/youloft/watcher/utils/a.java
+          echo; echo "== 常量值 =="
+          echo "-- v2.a.f80749y:"; grep -A1 'f80749y' src/sources/v2/a.java | head -4
+          echo "-- vf.f.f81235e:"; grep -A1 'f81235e' src/sources/vf/f.java | head -4
+          echo "-- bv.aI:"; grep -A1 ' aI' src/sources/com/umeng/analytics/pro/bv.java | head -4
+          echo "-- f4.k.f69891c:"; grep -B1 -A1 'f69891c' src/sources/f4/k.java | head -6
+          echo "-- ve.f.f81194d:"; grep -A1 'f81194d' src/sources/ve/f.java | head -4
+          echo "== gh/a.java (API客户端) =="
+          head -c 24000 src/sources/gh/a.java
+          echo; echo "SRC_END"
