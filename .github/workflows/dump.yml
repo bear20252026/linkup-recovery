@@ -15,16 +15,13 @@ jobs:
           set -x
           RID=$(gh run list -R bear20252026/linkup-recovery -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
           gh run download "$RID" -n linkup-166-src -D src -R bear20252026/linkup-recovery
-      - name: Dump login body keys
+      - name: Dump login caller
         run: |
           echo "SRC_BEGIN"
-          echo "== region 关键词调用方 =="
-          (grep -rn '"region"' src/sources/com/youloft/watcher | head -10 || true)
-          echo "== 登录相关 map 构建 =="
-          (grep -rln 'login' src/sources/com/youloft/watcher/repository src/sources/com/youloft/watcher/manager | head -10 || true)
-          (grep -rn -B3 -A12 '"phone"' src/sources/com/youloft/watcher/repository/*.java | head -80 || true)
-          echo "== User bean token 字段 =="
-          (grep -n 'token\|Token' src/sources/com/youloft/watcher/bean/User.java | head -15 || true)
-          echo "== User bean 前40行 =="
-          (sed -n '1,40p' src/sources/com/youloft/watcher/bean/User.java || true)
+          echo "== datasource/a.java 680-780 (登录map上下文) =="
+          (sed -n '680,780p' src/sources/com/youloft/watcher/datasource/a.java || true)
+          echo "== repository/c.java login 相关 =="
+          (grep -n -B5 -A20 'login' src/sources/com/youloft/watcher/repository/c.java | head -100 || true)
+          echo "== kj/b.java typeId 枚举 =="
+          (head -c 3000 src/sources/kj/b.java || true)
           echo "SRC_END"
