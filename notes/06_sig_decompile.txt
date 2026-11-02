@@ -1,0 +1,149 @@
+[*] Loading...
+[+] Loaded
+
+========== 1. com.youloft.yftracker.helpers.OkHttpManager.signatureGet ==========
+[32m2026-05-19 15:05:32.596[0m | [31m[1mERROR   [0m | [36mandroguard.decompiler.graph[0m:[36mconstruct[0m:[36m551[0m - [31m[1mMultiple exit nodes found ![0m
+
+    private final String signatureGet(String p2)
+    {
+        try {
+            ti.f1$a v0 = com.youloft.yftracker.util.EncryptUtils.INSTANCE;
+            return v0.md5(v0.aes128Encrypt(p2));
+        } catch (String v2_5) {
+            ti.f1.constructor-impl(ti.g1.a(v2_5));
+            return "";
+        }
+    }
+
+
+========== 2. com.zx.a.I8b7.z0.a(String,String,JSONObject) ==========
+
+    private static native String a();
+
+
+========== 3. com.youloft.yftracker.asdk.ASDKManager.bindToken ==========
+[32m2026-05-19 15:05:32.782[0m | [31m[1mERROR   [0m | [36mandroguard.decompiler.graph[0m:[36mconstruct[0m:[36m551[0m - [31m[1mMultiple exit nodes found ![0m
+
+    private final void bindToken(com.youloft.yftracker.protobuf.StsAuthResponseDto p9, String p10)
+    {
+        String v0_0 = p9.getSts_access_key_id();
+        if ((v0_0 != null) && (v0_0.length() != 0)) {
+            String v0_1 = p9.getSts_access_key_secret();
+            if ((v0_1 != null) && (v0_1.length() != 0)) {
+                String v0_5 = p9.getSts_token();
+                if ((v0_5 != null) && (v0_5.length() != 0)) {
+                    String v0_7 = this.mLogProducerConfig;
+                    if (v0_7 == null) {
+                        kotlin.jvm.internal.l0.S("mLogProducerConfig");
+                    }
+                    v0_7.resetSecurityToken(p9.getSts_access_key_id(), p9.getSts_access_key_secret(), p9.getSts_token());
+                    String v0_8 = p9.getProject();
+                    if ((v0_8 != null) && (v0_8.length() != 0)) {
+                        String v0_10 = p9.getLog_store();
+                        if ((v0_10 != null) && (v0_10.length() != 0)) {
+                            String v0_12 = p9.getEndpoint();
+                            if ((v0_12 != null) && (v0_12.length() != 0)) {
+                                com.aliyun.sls.android.producer.LogProducerConfig v10_2 = this.mLogProducerConfig;
+                                if (v10_2 == null) {
+                                    kotlin.jvm.internal.l0.S("mLogProducerConfig");
+                                }
+                                v10_2.setProject(p9.getProject());
+                                com.aliyun.sls.android.producer.LogProducerConfig v10_3 = this.mLogProducerConfig;
+                                if (v10_3 == null) {
+                                    kotlin.jvm.internal.l0.S("mLogProducerConfig");
+                                }
+                                v10_3.setLogstore(p9.getLog_store());
+                                com.aliyun.sls.android.producer.LogProducerConfig v10_4 = this.mLogProducerConfig;
+                                if (v10_4 == null) {
+                                    kotlin.jvm.internal.l0.S("mLogProducerConfig");
+                                }
+                                v10_4.setEndpoint(p9.getEndpoint());
+                            } else {
+                                if (this.needRequestWholeAuth) {
+                                    String v0_19 = this.mTrackerCallback;
+                                    if (v0_19 != null) {
+                                        int v5_4 = com.youloft.yftracker.YfStatusCode.INSTANCE.getINIT_ERROR_REQUEST_STS_SERVER_DATA_ERROR();
+                                        StringBuilder v6_2 = new StringBuilder();
+                                        v6_2.append("needRequestWholeAuth = ");
+                                        v6_2.append(this.needRequestWholeAuth);
+                                        v6_2.append(",but have empty params ");
+                                        v6_2.append("stsAuthRsp:");
+                                        v6_2.append(p10);
+                                        com.youloft.yftracker.interf.ITrackerListener$DefaultImpls.onTrackCallBack$default(v0_19, new com.youloft.yftracker.entity.StatusEntity(v5_4, v6_2.toString()), 0, 2, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    this.needRequestWholeAuth = 0;
+                    this.mASDKConfigRsp = p9;
+                    com.youloft.yftracker.interf.ITrackerListener v9_2 = this.mTrackerCallback;
+                    if (v9_2 != null) {
+                        com.youloft.yftracker.interf.ITrackerListener$DefaultImpls.onTrackCallBack$default(v9_2, com.youloft.yftracker.YfStatusCode.INSTANCE.getINIT_SUCCESS(), 0, 2, 0);
+                        return;
+                    }
+                } else {
+                    com.youloft.yftracker.interf.ITrackerListener v9_1 = this.mTrackerCallback;
+                    if (v9_1 != null) {
+                        com.youloft.yftracker.entity.StatusEntity v4_1 = com.youloft.yftracker.YfStatusCode.INSTANCE.getINIT_ERROR_REQUEST_STS_SERVER_DATA_ERROR();
+                        int v5_1 = new StringBuilder();
+                        v5_1.append("stsAuthRsp:");
+                        v5_1.append(p10);
+                        com.youloft.yftracker.interf.ITrackerListener$DefaultImpls.onTrackCallBack$default(v9_1, new com.youloft.yftracker.entity.StatusEntity(v4_1, v5_1.toString()), 0, 2, 0);
+                    }
+                }
+            }
+        }
+        return;
+    }
+
+
+========== 4. com.youloft.watcher.* ÖÐº¬ retrofit / okhttp / api / repo µÄÀà ==========
+  total: 44
+   com.youloft.watcher.annotation.CmdType$AutoReportSettings
+   com.youloft.watcher.annotation.CmdType$LocationReported
+   com.youloft.watcher.annotation.CmdType$ReportLocation
+   com.youloft.watcher.bean.AutoReport
+   com.youloft.watcher.bean.AutoReportSettings
+   com.youloft.watcher.bean.SensReportResult
+   com.youloft.watcher.databinding.ActivityAutoReportSettingsBinding
+   com.youloft.watcher.databinding.DialogVipServiceAgreementBinding
+   com.youloft.watcher.databinding.DialogVipServiceAgreementCenterBinding
+   com.youloft.watcher.databinding.ViewAutoReportSettingsBinding
+   com.youloft.watcher.ext.ApiResponse
+   com.youloft.watcher.pages.mine.AutoReportSettingsActivity
+   com.youloft.watcher.pages.mine.AutoReportSettingsActivity$a
+   com.youloft.watcher.pages.mine.AutoReportSettingsActivity$b
+   com.youloft.watcher.pages.mine.AutoReportSettingsActivity$b$a
+   com.youloft.watcher.pages.vip.dialog.VipServiceAgreementCenterDialog
+   com.youloft.watcher.pages.vip.dialog.VipServiceAgreementDialog
+   com.youloft.watcher.service.push.PushCoreService
+   com.youloft.watcher.service.push.PushIntentService
+   com.youloft.watcher.service.push.PushIntentService$a
+   com.youloft.watcher.service.push.PushIntentService$a$a
+   com.youloft.watcher.service.push.im.HMSPushService
+   com.youloft.watcher.service.push.im.HMSPushService$a
+   com.youloft.watcher.service.push.im.HONORPushService
+   com.youloft.watcher.service.widget.WidgetUpdateService
+   com.youloft.watcher.service.widget.WidgetUpdateService$a
+   com.youloft.watcher.utils.CacheUtils$friendAutoReport$1
+   com.youloft.watcher.utils.CacheUtils$lowPowerReportRecord$1
+   com.youloft.watcher.view.AutoReportSettingsView
+   com.youloft.watcher.view.AutoReportSettingsView$a
+   com.youloft.watcher.view.AutoReportSettingsView$b
+   com.youloft.watcher.view.AutoReportSettingsView$c
+   com.youloft.watcher.view.AutoReportSettingsView$c$a
+   com.youloft.watcher.view.AutoReportSettingsView$d
+   com.youloft.watcher.view.AutoReportSettingsView$d$a
+   com.youloft.watcher.view.BottomLineTextView
+   com.youloft.watcher.widget.report.ReportService
+   com.youloft.watcher.widget.report.ReportService$a
+   com.youloft.watcher.widget.report.ReportService$b
+   com.youloft.watcher.widget.report.ReportService$c
+   com.youloft.watcher.widget.report.ReportService$d
+   com.youloft.watcher.widget.report.ReportService$e
+   com.youloft.watcher.widget.report.SchedulerReportJob
+   com.youloft.watcher.widget.report.SchedulerReportJob$a
+
+========== 5. retrofit2.Retrofit$Builder / OkHttpClient$Builder µÄÒµÎñµ÷ÓÃ·½ ==========
+  okhttp3.OkHttpClient$Builder.<init>  <-  com.byazt.q.gq.ma
