@@ -1,0 +1,30 @@
+name: archive-source
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download decompiled source artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          RID=$(gh run list -R bear20252026/linkup-recovery -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
+          echo "using run $RID"
+          gh run download "$RID" -n linkup-166-src -D src -R bear20252026/linkup-recovery
+          echo "java files: $(find src -name '*.java' | wc -l)"
+      - name: Zip and upload to Release v1.0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          cd src
+          zip -qr ../linkup-166-src.zip .
+          cd ..
+          ls -la linkup-166-src.zip
+          gh release upload v1.0 linkup-166-src.zip --clobber -R bear20252026/linkup-recovery
+          echo "ARCHIVE_OK"
