@@ -1,0 +1,229 @@
+[*] Loading...
+[+] Loaded
+
+========== EncryptUtils È«Àà·´±àÒë ==========
+--- Static fields ---
+  AES_ALGORITHM:Ljava/lang/String;  = 'AES/CBC/PKCS5Padding'
+  AES_KEY_TYPE:Ljava/lang/String;  = 'AES'
+  CHARSET:Ljava/lang/String;  = 'UTF-8'
+  INSTANCE:Lcom/youloft/yftracker/util/EncryptUtils;  = None
+  iv:Ljava/lang/String;  = None
+  key:Ljava/lang/String;  = None
+
+--- Methods (decompile) ---
+
+[[<clinit>]]
+
+    static EncryptUtils()
+    {
+        com.youloft.yftracker.util.EncryptUtils.INSTANCE = new com.youloft.yftracker.util.EncryptUtils();
+        com.youloft.yftracker.util.EncryptUtils.key = "be2524844ec4bb25";
+        com.youloft.yftracker.util.EncryptUtils.iv = "be2524844ec4bb25";
+        return;
+    }
+
+
+[[<init>]]
+
+    private EncryptUtils()
+    {
+        return;
+    }
+
+
+[[aes128Encrypt(Ljava/lang/String;)Ljava/lang/String;]]
+[32m2026-05-19 15:20:04.902[0m | [31m[1mERROR   [0m | [36mandroguard.decompiler.graph[0m:[36mconstruct[0m:[36m551[0m - [31m[1mMultiple exit nodes found ![0m
+
+    public final String aes128Encrypt(String p7)
+    {
+        kotlin.jvm.internal.l0.p(p7, "input");
+        javax.crypto.spec.IvParameterSpec v2_3 = com.youloft.yftracker.util.EncryptUtils.key;
+        java.nio.charset.Charset v3 = kotlin.text.f.b;
+        if (v2_3 == null) {
+            throw new NullPointerException("null cannot be cast to non-null type java.lang.String");
+        } else {
+            javax.crypto.spec.IvParameterSpec v2_0 = v2_3.getBytes(v3);
+            kotlin.jvm.internal.l0.o(v2_0, "(this as java.lang.String).getBytes(charset)");
+            javax.crypto.spec.SecretKeySpec v1_1 = new javax.crypto.spec.SecretKeySpec(v2_0, "AES");
+            int v5_1 = com.youloft.yftracker.util.EncryptUtils.iv;
+            if (v5_1 == 0) {
+                throw new NullPointerException("null cannot be cast to non-null type java.lang.String");
+            } else {
+                javax.crypto.Cipher v4_0 = v5_1.getBytes(v3);
+                kotlin.jvm.internal.l0.o(v4_0, "(this as java.lang.String).getBytes(charset)");
+                javax.crypto.spec.IvParameterSpec v2_2 = new javax.crypto.spec.IvParameterSpec(v4_0);
+                javax.crypto.Cipher v4_2 = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding");
+                v4_2.init(1, v1_1, v2_2);
+                NullPointerException v7_3 = p7.getBytes(v3);
+                kotlin.jvm.internal.l0.o(v7_3, "(this as java.lang.String).getBytes(charset)");
+                NullPointerException v7_4 = v4_2.doFinal(v7_3);
+                kotlin.jvm.internal.l0.o(v7_4, "encryptedBytes");
+                return this.bytesToHex(v7_4);
+            }
+        }
+    }
+
+
+[[decryptAes128Hex(Ljava/lang/String;)Ljava/lang/String;]]
+[32m2026-05-19 15:20:04.913[0m | [31m[1mERROR   [0m | [36mandroguard.decompiler.graph[0m:[36mconstruct[0m:[36m551[0m - [31m[1mMultiple exit nodes found ![0m
+
+    public final String decryptAes128Hex(String p6)
+    {
+        kotlin.jvm.internal.l0.p(p6, "encryptedText");
+        javax.crypto.spec.IvParameterSpec v1_4 = com.youloft.yftracker.util.EncryptUtils.key;
+        java.nio.charset.Charset v2 = kotlin.text.f.b;
+        if (v1_4 == null) {
+            throw new NullPointerException("null cannot be cast to non-null type java.lang.String");
+        } else {
+            javax.crypto.spec.IvParameterSpec v1_1 = v1_4.getBytes(v2);
+            kotlin.jvm.internal.l0.o(v1_1, "(this as java.lang.String).getBytes(charset)");
+            int v4_0 = com.youloft.yftracker.util.EncryptUtils.iv;
+            if (v4_0 == 0) {
+                throw new NullPointerException("null cannot be cast to non-null type java.lang.String");
+            } else {
+                javax.crypto.Cipher v3_0 = v4_0.getBytes(v2);
+                kotlin.jvm.internal.l0.o(v3_0, "(this as java.lang.String).getBytes(charset)");
+                String v0_2 = new javax.crypto.spec.SecretKeySpec(v1_1, "AES");
+                javax.crypto.spec.IvParameterSpec v1_3 = new javax.crypto.spec.IvParameterSpec(v3_0);
+                javax.crypto.Cipher v3_2 = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding");
+                v3_2.init(2, v0_2, v1_3);
+                NullPointerException v6_4 = v3_2.doFinal(android.util.Base64.decode(p6, 0));
+                kotlin.jvm.internal.l0.o(v6_4, "originalBytes");
+                return new String(v6_4, v2);
+            }
+        }
+    }
+
+
+[[getKey()Ljava/lang/String;]]
+
+    public final String getKey()
+    {
+        return com.youloft.yftracker.util.EncryptUtils.key;
+    }
+
+
+[[md5(Ljava/lang/String;)Ljava/lang/String;]]
+[32m2026-05-19 15:20:04.917[0m | [31m[1mERROR   [0m | [36mandroguard.decompiler.graph[0m:[36mconstruct[0m:[36m551[0m - [31m[1mMultiple exit nodes found ![0m
+
+    public final String md5(String p7)
+    {
+        kotlin.jvm.internal.l0.p(p7, "input");
+        String v0_5 = java.security.MessageDigest.getInstance("MD5");
+        String v7_5 = p7.getBytes(kotlin.text.f.b);
+        kotlin.jvm.internal.l0.o(v7_5, "(this as java.lang.String).getBytes(charset)");
+        String v7_1 = v0_5.digest(v7_5);
+        String v0_2 = new StringBuilder();
+        int v1_0 = v7_1.length;
+        int v2 = 0;
+        while (v2 < v1_0) {
+            String v3_4 = String.format("%02x", java.util.Arrays.copyOf(new Object[] {Byte.valueOf(v7_1[v2])}), 1));
+            kotlin.jvm.internal.l0.o(v3_4, "java.lang.String.format(format, *args)");
+            v0_2.append(v3_4);
+            v2++;
+        }
+        String v7_2 = v0_2.toString();
+        kotlin.jvm.internal.l0.o(v7_2, "hexString.toString()");
+        return v7_2;
+    }
+
+
+[[md5([B)Ljava/lang/String;]]
+[32m2026-05-19 15:20:04.921[0m | [31m[1mERROR   [0m | [36mandroguard.decompiler.graph[0m:[36mconstruct[0m:[36m551[0m - [31m[1mMultiple exit nodes found ![0m
+
+    public final String md5(byte[] p7)
+    {
+        kotlin.jvm.internal.l0.p(p7, "input");
+        String v7_4 = java.security.MessageDigest.getInstance("MD5").digest(p7);
+        String v0_5 = new StringBuilder();
+        int v1 = v7_4.length;
+        int v2 = 0;
+        while (v2 < v1) {
+            String v3_4 = String.format("%02x", java.util.Arrays.copyOf(new Object[] {Byte.valueOf(v7_4[v2])}), 1));
+            kotlin.jvm.internal.l0.o(v3_4, "java.lang.String.format(format, *args)");
+            v0_5.append(v3_4);
+            v2++;
+        }
+        String v7_1 = v0_5.toString();
+        kotlin.jvm.internal.l0.o(v7_1, "hexString.toString()");
+        return v7_1;
+    }
+
+
+========== signatureGet µÄµ÷ÓÃ·½ ==========
+  caller: com.youloft.yftracker.helpers.OkHttpManager::addCommonHeader(Ljava/lang/String; Lokhttp3/Request$Builder;)V
+
+========== OkHttpManager ¹Ø¼ü·½·¨·´±àÒë ==========
+
+========== com.youloft.watcher.* Ö÷ÒµÎñÍøÂç²ãºòÑ¡ ==========
+   com.youloft.watcher.adapter.MsgListAdapter$ItemRequestVH
+   com.youloft.watcher.annotation.CmdType$AutoReportSettings
+   com.youloft.watcher.annotation.CmdType$LocationReported
+   com.youloft.watcher.annotation.CmdType$ReportLocation
+   com.youloft.watcher.annotation.CmdType$RequestAddFriend
+   com.youloft.watcher.bean.AutoReport
+   com.youloft.watcher.bean.AutoReportSettings
+   com.youloft.watcher.bean.BannerData
+   com.youloft.watcher.bean.BannerData$Companion
+   com.youloft.watcher.bean.ChatCollectionData
+   com.youloft.watcher.bean.EvaluateData
+   com.youloft.watcher.bean.GuidePageData
+   com.youloft.watcher.bean.GuidePageData$Companion
+   com.youloft.watcher.bean.HomeData
+   com.youloft.watcher.bean.SensReportResult
+   com.youloft.watcher.bean.camera.ImageData
+   com.youloft.watcher.bean.camera.ImageData$Creator
+   com.youloft.watcher.bean.friend.FriendRequest
+   com.youloft.watcher.bean.friend.FriendRequest$Creator
+   com.youloft.watcher.bean.friend.FriendRequestList
+   com.youloft.watcher.bean.im.ChatGifData
+   com.youloft.watcher.bean.im.RiskDataConfig
+   com.youloft.watcher.bean.vip.VipData
+   com.youloft.watcher.bean.vip.VipData$Companion
+   com.youloft.watcher.bean.vip.VipData$RandomBroadcast
+   com.youloft.watcher.database.AppDatabase
+   com.youloft.watcher.database.AppDatabase_Impl
+   com.youloft.watcher.database.AppDatabase_Impl$a
+   com.youloft.watcher.databinding.ActivityAutoReportSettingsBinding
+   com.youloft.watcher.databinding.ActivityDataSecurityBinding
+   com.youloft.watcher.databinding.ActivityFriendRequestDetailBinding
+   com.youloft.watcher.databinding.ActivityFriendRequestListBinding
+   com.youloft.watcher.databinding.ActivityRequestPermissionFirstBinding
+   com.youloft.watcher.databinding.ActivityRequestPermissionSecondBinding
+   com.youloft.watcher.databinding.DialogVipServiceAgreementBinding
+   com.youloft.watcher.databinding.DialogVipServiceAgreementCenterBinding
+   com.youloft.watcher.databinding.FragmentRequestPermissionFirstBinding
+   com.youloft.watcher.databinding.FragmentRequestPermissionSecondBinding
+   com.youloft.watcher.databinding.ItemFriendRequestBinding
+   com.youloft.watcher.databinding.ItemMsgListRequestBinding
+   com.youloft.watcher.databinding.ViewAutoReportSettingsBinding
+   com.youloft.watcher.ext.ApiResponse
+   com.youloft.watcher.pages.friend.FriendRequestDetailActivity
+   com.youloft.watcher.pages.friend.FriendRequestDetailActivity$a
+   com.youloft.watcher.pages.friend.FriendRequestDetailActivity$b
+   com.youloft.watcher.pages.friend.FriendRequestDetailActivity$c
+   com.youloft.watcher.pages.friend.FriendRequestDetailActivity$d
+   com.youloft.watcher.pages.friend.FriendRequestDetailActivity$e
+   com.youloft.watcher.pages.friend.FriendRequestListActivity
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$a
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$b
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$b$a
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$c
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$d
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$e
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$f
+   com.youloft.watcher.pages.friend.FriendRequestListActivity$onCreated$1$1
+   com.youloft.watcher.pages.friend.Hilt_FriendRequestDetailActivity
+   com.youloft.watcher.pages.friend.Hilt_FriendRequestDetailActivity$a
+   com.youloft.watcher.pages.friend.Hilt_FriendRequestListActivity
+
+========== retrofit2.Retrofit$Builder.<init> µÄËùÓÐµ÷ÓÃ·½ ==========
+
+========== okhttp3.OkHttpClient.newCall µ÷ÓÃ·½£¨ÒµÎñ¹ýÂË£©==========
+  com.byazt.kg.e
+  com.byazt.kg.i
+  com.youloft.watcher.manager.j3$e
+  com.youloft.watcher.manager.r2
+  com.youloft.watcher.pages.test.TestLocationMockActivity$b
+  com.youloft.watcher.utils.download.c$a
+  com.youloft.yftracker.helpers.OkHttpManager
