@@ -26,3 +26,18 @@ sh run_all.sh
 ```
 前提：已装 git 和 Java 17（`brew install --cask temurin@17`；脚本会自动检查并提示）。
 产物 `linkup_decompiled.zip` 生成后发回手机继续分析。
+
+## 2026-11-02 更新：重建工程已进仓库
+
+反编译与协议验证全部改到本机 Windows 完成（JDK21 + Android SDK + jadx + apktool + Gradle 都在本地），不再依赖 Mac mini。
+
+- 新增 `rebuild/`：已实机验证的网络层（`net/`，签名请求在 linkup-test 上拿到 `status=200`）、Android 壳（`app/`，本机能出 17.9MB debug APK）、还原出的 97 条路由契约（`recovered/`）
+- 新增 `report/05_local_rebuild_and_backend_CN.md`：本轮结论、后端归属调查、待验清单
+- 修正两处前面报告的事实：拦截器只对 `api.weixin.qq.com` 放行（不是所有第三方域名）；1.6.6 的 936 个布局里 DataBinding `<layout>` 根标签为 0 个
+
+跑法：
+
+```bash
+cd rebuild && sh tools/gradle.sh :net:test        # 5 个离线回归，锁住签名协议
+cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条签名请求
+```
