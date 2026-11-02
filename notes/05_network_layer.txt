@@ -1,0 +1,29 @@
+[*] Loading APK ...
+[+] Loaded
+
+=== OkHttp Interceptor 实现类（业务/自研） ===
+  total = 15
+  [业务/自研] 0:
+  [第三方 SDK] 15 (省略，仅打印前 25):
+     al.a
+     com.efs.sdk.net.NetManager$1
+     com.efs.sdk.net.OkHttpInterceptor
+     com.kwad.sdk.j.a
+     com.tencent.open.a.e$a
+     lf.b$b
+     okhttp3.Interceptor$Companion$invoke$1
+     okhttp3.OkHttpClient$Builder$addInterceptor$2
+     okhttp3.OkHttpClient$Builder$addNetworkInterceptor$2
+     okhttp3.internal.cache.a
+     okhttp3.internal.connection.a
+     rk.a
+     rk.b
+     rk.j
+     yg.c
+
+=== com.youloft.* / com.byazt.* 中出现的 URL ===
+Traceback (most recent call last):
+  File "C:\Users\Elevoc\.claude-ctf-workspace\reverse\linkup\notes\05_network_layer.py", line 50, in <module>
+    sv = s.get_value()
+         ^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get_value'
