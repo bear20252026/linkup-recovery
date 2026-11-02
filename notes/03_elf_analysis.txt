@@ -1,0 +1,255 @@
+
+========== libtobEmbedEncrypt.so ==========
+NEEDED: libc.so, libm.so, libstdc++.so, libdl.so
+Exports total: 49
+JNI exports: 6
+  + Java_com_byakv_z_TTEncryptUtils_getDI0Result  [692B]
+  + Java_com_byakv_z_TTEncryptUtils_ttDecrypt  [316B]
+  + Java_com_byakv_z_TTEncryptUtils_ttEncrypt  [344B]
+  + Java_com_byakv_z_TTEncryptUtils_getDA0Result  [748B]
+  + Java_com_byakv_z_TTEncryptUtils_clientPackedBase64  [336B]
+  + Java_com_byakv_z_TTEncryptUtils_clientUnpackedBase64  [332B]
+Top-15 exports (by code size):
+  *     984B  BDSwordOAES_encrypt
+  *     944B  BDSwordOAES_decrypt
+  *     880B  BDSwordAES_set_encrypt_key
+  *     836B  BDSwordSHA512_Final
+  *     748B  Java_com_byakv_z_TTEncryptUtils_getDA0Result
+  *     692B  Java_com_byakv_z_TTEncryptUtils_getDI0Result
+  *     676B  BDSwordCRYPTO_cbc128_decrypt
+  *     652B  BDSwordAES_CBC_PKCS7_Decrypt
+  *     604B  BDSwordAES_set_decrypt_key
+  *     580B  BDSwordCRYPTO_cbc128_encrypt
+  *     532B  ss_encrypt
+  *     404B  BDSwordencryptMethodAesKSV2
+  *     404B  ss_decrypt
+  *     404B  BDSworddecryptMethodAesKSV2
+  *     388B  BDSwordSHA512_Update
+Notable imports:
+
+========== libzxprotect.so ==========
+NEEDED: liblog.so, libc.so, libm.so, libdl.so
+Exports total: 75
+JNI exports: 75
+  + Java_com_zx_a_I8b7_d3_d__  [144B]
+  + Java_com_zx_a_I8b7_d3_f__  [3308B]
+  + Java_com_zx_a_I8b7_d3_h__  [152B]
+  + Java_com_zx_a_I8b7_g1_a__  [1508B]
+  + Java_com_zx_a_I8b7_h1_b__  [2956B]
+  + Java_com_zx_a_I8b7_j1_b__  [1576B]
+  + Java_com_zx_a_I8b7_p2_a__  [2284B]
+  + Java_com_zx_a_I8b7_r0_a__  [1576B]
+  + Java_com_zx_a_I8b7_u2_b__  [208B]
+  + Java_com_zx_a_I8b7_u2_d__  [448B]
+  + Java_com_zx_a_I8b7_u2_f__  [312B]
+  + Java_com_zx_a_I8b7_u2_h__  [244B]
+  + Java_com_zx_a_I8b7_z0_a__  [1356B]
+  + Java_com_zx_a_I8b7_z0_a__Ljava_lang_String_2  [1016B]
+  + Java_com_zx_a_I8b7_z0_c__  [1560B]
+  + Java_com_zx_a_I8b7_z0_e__  [4236B]
+  + Java_com_zx_a_I8b7_z0_g__  [1332B]
+  + Java_com_zx_a_I8b7_g_a__Ljava_lang_String_2  [2344B]
+  + Java_com_zx_a_I8b7_u2_a__Ljava_lang_String_2Ljava_lang_String_2  [2628B]
+  + Java_com_zx_a_I8b7_h_a__  [1448B]
+  + Java_com_zx_a_I8b7_p2_a__Ljava_lang_String_2II  [4472B]
+  + Java_com_zx_a_I8b7_v_a__  [1576B]
+  + Java_com_zx_a_I8b7_w_a__Ljava_net_HttpURLConnection_2  [1072B]
+  + Java_com_zx_a_I8b7_w_h__  [156B]
+  + Java_com_zx_a_I8b7_z0_a__Ljava_lang_String_2Lorg_json_JSONObject_2  [424B]
+Top-15 exports (by code size):
+  *   22640B  Java_com_zx_a_I8b7_d3_a__Ljava_lang_String_2
+  *    8492B  Java_com_zx_a_I8b7_u2_a__Ljava_lang_String_2
+  *    5852B  Java_com_zx_a_I8b7_u2_i__
+  *    5740B  Java_com_zx_a_I8b7_d3_a__
+  *    5528B  Java_com_zx_a_I8b7_z0_c__Lorg_json_JSONArray_2Ljava_util_HashMap_2Lorg_json_JSONObject_2
+  *    5396B  Java_com_zx_a_I8b7_u2_00024a_a__Landroid_net_Network_2Ljava_lang_String_2
+  *    4712B  Java_com_zx_a_I8b7_u2_a__
+  *    4472B  Java_com_zx_a_I8b7_p2_a__Ljava_lang_String_2II
+  *    4400B  Java_com_zx_a_I8b7_z0_d__
+  *    4236B  Java_com_zx_a_I8b7_z0_e__
+  *    3708B  Java_com_zx_a_I8b7_g1_a__Lorg_json_JSONObject_2Ljava_lang_String_2Ljava_lang_String_2
+  *    3484B  Java_com_zx_a_I8b7_z0_a__Ljava_lang_String_2Ljava_lang_String_2Lorg_json_JSONObject_2
+  *    3420B  Java_com_zx_a_I8b7_u2_e__
+  *    3376B  Java_com_zx_a_I8b7_u2_c__
+  *    3308B  Java_com_zx_a_I8b7_d3_f__
+Notable imports:
+
+========== libsgcore.so ==========
+NEEDED: liblog.so, libm.so, libdl.so, libc.so
+Exports total: 11
+JNI exports: 4
+  + Java_com_kwai_sgcore_SGCore_getMagic  [1536B]
+  + JNI_OnUnload  [64B]
+  + JNI_OnLoad  [1444B]
+  + Java_com_kwai_sgcore_SGCore_getClock  [1868B]
+Top-15 exports (by code size):
+  *    1868B  Java_com_kwai_sgcore_SGCore_getClock
+  *    1536B  Java_com_kwai_sgcore_SGCore_getMagic
+  *    1444B  JNI_OnLoad
+  *      64B  JNI_OnUnload
+  *       0B  _bss_end__
+  *       0B  _edata
+  *       0B  _end
+  *       0B  __bss_start
+  *       0B  __bss_end__
+  *       0B  __end__
+  *       0B  __bss_start__
+Notable imports:
+  [Crypto] strcasecmp
+
+========== libcipherdb.so ==========
+NEEDED: liblog.so, libz.so, libc.so, libm.so, libdl.so
+Exports total: 345
+JNI exports: 0
+Top-15 exports (by code size):
+  *    7284B  sqlcipher_codec_pragma
+  *    6600B  sqlite3_str_vappendf
+  *    3716B  sqlite3_step
+  *    2488B  sqlite3_test_control
+  *    1852B  sqlite3_config
+  *    1628B  sqlite3_backup_step
+  *    1584B  sqlite3_blob_open
+  *    1392B  sqlcipher_codec_ctx_migrate
+  *    1212B  sqlite3_load_extension
+  *    1140B  sqlite3_db_status
+  *    1104B  sqlite3_initialize
+  *    1052B  sqlcipher_exportFunc
+  *    1044B  sqlite3_complete
+  *    1004B  sqlcipher_codec_ctx_integrity_check
+  *     968B  sqlite3_exec
+Notable imports:
+  [Crypto] pthread_setspecific, pthread_getspecific
+  [JNI_Reg] getenv
+
+========== libturingad.so ==========
+NEEDED: liblog.so, libandroid.so, libz.so, libm.so, libstdc++.so, libdl.so, libc.so
+Exports total: 6
+JNI exports: 1
+  + JNI_OnLoad  [500B]
+Top-15 exports (by code size):
+  *     500B  JNI_OnLoad
+  *      48B  real_syscall
+  *       4B  x
+  *       4B  y
+  *       4B  y.8
+  *       4B  x.7
+Notable imports:
+  [Crypto] recvfrom, regexec, pthread_setspecific, pthread_getspecific, strcasecmp
+  [JNI_Reg] getenv
+
+========== libn.so ==========
+NEEDED: libandroid.so, liblog.so, libm.so, libstdc++.so, libdl.so, libc.so
+Exports total: 9
+JNI exports: 1
+  + Java_com_bytedance_ad_common_interal_Nano_n  [208B]
+Top-15 exports (by code size):
+  *     208B  Java_com_bytedance_ad_common_interal_Nano_n
+  *     192B  system_file_list
+  *       0B  _bss_end__
+  *       0B  __bss_start
+  *       0B  __end__
+  *       0B  __bss_start__
+  *       0B  _edata
+  *       0B  __bss_end__
+  *       0B  _end
+Notable imports:
+
+========== libtiny_magic.so ==========
+NEEDED: liblog.so, libm.so, libdl.so, libc.so
+Exports total: 1
+JNI exports: 1
+  + JNI_OnLoad  [728B]
+Top-15 exports (by code size):
+  *     728B  JNI_OnLoad
+Notable imports:
+
+========== libhyphenate.so ==========
+NEEDED: libz.so, liblog.so, libcipherdb.so, libc.so, libm.so, libdl.so
+Exports total: 842
+JNI exports: 842
+  + Java_com_hyphenate_chat_adapter_EMAUserInfoManager_nativeFetchUserInfoByAttribute  [244B]
+  + Java_com_hyphenate_chat_adapter_EMAChatManager_nativeRemoveMessagesExceedCount  [52B]
+  + Java_com_hyphenate_chat_adapter_EMAConversation_nativeAppendMessage  [204B]
+  + Java_com_hyphenate_chat_adapter_EMAChatConfig_nativesetNumOfMessageLoaded  [24B]
+  + Java_com_hyphenate_chat_adapter_EMAThreadInfo_nativeGetMemberCount  [28B]
+  + Java_com_hyphenate_chat_adapter_message_EMAMessage_nativeGetLocalTime  [60B]
+  + Java_com_hyphenate_chat_adapter_EMAPresenceManager_nativeFetchPresenceStatus  [776B]
+  + Java_com_hyphenate_chat_adapter_EMAChatClient_nativeGetLoggedInDevicesFromServer  [804B]
+  + Java_com_hyphenate_chat_adapter_EMAChatConfig_nativesetRequireReadAck  [24B]
+  + Java_com_hyphenate_chat_adapter_EMAContactManager_nativeRegisterContactListener  [260B]
+  + Java_com_hyphenate_chat_adapter_message_EMAMessage_nativeInit__Lcom_hyphenate_chat_adapter_message_EMAMessage_2  [172B]
+  + Java_com_hyphenate_chat_adapter_EMAChatManager_nativeRemoveMessagesBeforeTimestamp  [52B]
+  + Java_com_hyphenate_chat_adapter_EMAChatClient_native_1logout  [32B]
+  + Java_com_hyphenate_chat_adapter_EMAGroupManager_nativeAddListener  [76B]
+  + Java_com_hyphenate_chat_adapter_EMAChatConfig_nativegetWorkPath  [16B]
+  + Java_com_hyphenate_chat_adapter_message_EMAImageMessageBody_nativeInit__Ljava_lang_String_2Ljava_lang_String_2  [504B]
+  + Java_com_hyphenate_chat_adapter_EMAGroup_nativeGetWhiteList  [128B]
+  + Java_com_hyphenate_chat_adapter_message_EMALocationMessageBody_nativebuildingName  [44B]
+  + Java_com_hyphenate_chat_adapter_EMAChatConfig_nativegetRequireReadAck  [16B]
+  + Java_com_hyphenate_chat_adapter_EMAConversation_nativeConversationType  [32B]
+  + Java_com_hyphenate_chat_adapter_EMAChatConfig_nativegetAutoConversationLoaded  [16B]
+  + Java_com_hyphenate_chat_adapter_EMAPushManager_nativeReportPushAction  [172B]
+  + Java_com_hyphenate_chat_adapter_EMAPushManager_nativeGetPushConfigsFromServer  [312B]
+  + Java_com_hyphenate_chat_adapter_EMABase__1hashCode  [36B]
+  + Java_com_hyphenate_chat_adapter_EMAContact_nativeFinalize  [80B]
+Top-15 exports (by code size):
+  *    4944B  Java_com_hyphenate_chat_adapter_EMAConversation_nativeSearchCustomMessages
+  *    4836B  Java_com_hyphenate_chat_adapter_EMAConversation_nativeLoadMoreMessages
+  *    3732B  Java_com_hyphenate_chat_adapter_EMAChatClient_nativeGetLoggedInDevicesFromServerWithToken
+  *    2320B  Java_com_hyphenate_chat_adapter_EMAConversation_nativeSearchMessages__JII
+  *    2056B  Java_com_hyphenate_chat_adapter_EMAConversation_nativePinnedMessages
+  *    2032B  Java_com_hyphenate_chat_adapter_EMAConversation_nativeSearchMessages__JJI
+  *    1808B  Java_com_hyphenate_chat_adapter_EMAChatClient_nativeCheck
+  *    1196B  Java_com_hyphenate_chat_adapter_EMAReactionManager_nativeGetReactionDetail
+  *    1160B  Java_com_hyphenate_chat_adapter_EMAGroupManager_nativeSetMemberAttribute
+  *    1084B  Java_com_hyphenate_chat_adapter_EMAGroupManager_nativeFetchPublicGroupsWithCursor
+  *    1084B  Java_com_hyphenate_chat_adapter_EMAConversation_nativeMessagesCountWithTime
+  *    1080B  Java_com_hyphenate_chat_adapter_message_EMAMessage_nativeBodies
+  *    1060B  Java_com_hyphenate_chat_adapter_EMAPresence_nativeGetStatusList
+  *    1056B  Java_com_hyphenate_chat_adapter_EMAChatClient_native_1changeAppkey
+  *    1052B  Java_com_hyphenate_chat_adapter_EMAChatClient_native_1create
+Notable imports:
+  [Crypto] pthread_setspecific, recvfrom, select, pthread_cond_signal, pthread_getspecific, connect, recv
+  [JNI_Reg] getenv
+
+========== libpanglearmor.so ==========
+NEEDED: liblog.so, libandroid.so, libm.so, libdl.so, libc.so
+Exports total: 8
+JNI exports: 1
+  + JNI_OnLoad  [364B]
+Top-15 exports (by code size):
+  *     364B  JNI_OnLoad
+  *       0B  _bss_end__
+  *       0B  _edata
+  *       0B  _end
+  *       0B  __bss_start
+  *       0B  __bss_end__
+  *       0B  __end__
+  *       0B  __bss_start__
+Notable imports:
+
+========== libumeng-spy.so ==========
+NEEDED: liblog.so, libm.so, libdl.so, libc.so
+Exports total: 358
+JNI exports: 3
+  + Java_com_umeng_umzid_Spy_getNativeTag  [204B]
+  + Java_com_umeng_umzid_Spy_getNativeLibraryVersion  [188B]
+  + Java_com_umeng_umzid_Spy_getNativeID  [196B]
+Top-15 exports (by code size):
+  *    1408B  __cxa_demangle
+  *     896B  __cxa_call_unexpected
+  *     476B  __gxx_personality_v0
+  *     308B  __dynamic_cast
+  *     280B  __cxa_rethrow_primary_exception
+  *     228B  _Z14signal_handleri
+  *     228B  __cxa_rethrow
+  *     224B  __cxa_end_catch
+  *     204B  Java_com_umeng_umzid_Spy_getNativeTag
+  *     196B  Java_com_umeng_umzid_Spy_getNativeID
+  *     188B  Java_com_umeng_umzid_Spy_getNativeLibraryVersion
+  *     152B  __cxa_begin_catch
+  *     144B  __cxa_get_globals
+  *     140B  _ZNSt13runtime_errorC2ERKNSt6__ndk112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE
+  *     140B  _ZNSt11logic_errorC2ERKNSt6__ndk112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE
+Notable imports:
+  [Crypto] signal, select, pthread_setspecific, pthread_getspecific
