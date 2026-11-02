@@ -26,7 +26,7 @@ if mode=="sms":
 else:
     body={"typeId":0,"phone":PHONE,"smsCode":code,"region":"86"}
     try:
-        r=requests.post(f"{BASE}/api/user/login?{qs}",json=body,headers={"User-Agent":UA},timeout=10)
+        r=requests.post(f"{BASE}/api/sms/click_to_login?{qs}",json=body,headers={"User-Agent":UA},timeout=10)
         print("login:",f"[{r.status_code}]",r.content[:600].decode('utf-8','replace'))
         data=(r.json().get("data") or {}) if r.status_code==200 else {}
     except Exception as e:
