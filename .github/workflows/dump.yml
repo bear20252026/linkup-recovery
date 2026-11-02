@@ -15,17 +15,21 @@ jobs:
           set -e
           RID=$(gh run list -R bear20252026/linkup-recovery -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
           gh run download "$RID" -n linkup-166-src -D src -R bear20252026/linkup-recovery
-      - name: Dump constants and client
+      - name: Dump login chain
         run: |
           echo "SRC_BEGIN"
-          echo "== utils/a.java (签名实现) =="
-          head -c 6000 src/sources/com/youloft/watcher/utils/a.java
-          echo; echo "== 常量值 =="
-          echo "-- v2.a.f80749y:"; grep -A1 'f80749y' src/sources/v2/a.java | head -4
-          echo "-- vf.f.f81235e:"; grep -A1 'f81235e' src/sources/vf/f.java | head -4
-          echo "-- bv.aI:"; grep -A1 ' aI' src/sources/com/umeng/analytics/pro/bv.java | head -4
-          echo "-- f4.k.f69891c:"; grep -B1 -A1 'f69891c' src/sources/f4/k.java | head -6
-          echo "-- ve.f.f81194d:"; grep -A1 'f81194d' src/sources/ve/f.java | head -4
-          echo "== gh/a.java (API客户端) =="
-          head -c 24000 src/sources/gh/a.java
-          echo; echo "SRC_END"
+          echo "== hm 注解定义 (f/o/t/a) =="
+          for x in f o t a; do echo "-- hm/$x.java:"; grep -m2 'interface\|@Target\|@Retention' src/sources/hm/$x.java; head -c 400 src/sources/hm/$x.java | grep -m1 'public'; echo; done
+          echo "== sms/send =="
+          grep -B4 -A10 '"api/sms/send"' src/sources/gh/a.java
+          echo "== user/login =="
+          grep -B4 -A14 '"api/user/login"' src/sources/gh/a.java
+          echo "== sms/login/cut =="
+          grep -B4 -A10 '"api/sms/login/cut"' src/sources/gh/a.java
+          echo "== sms/click_to_login =="
+          grep -B4 -A10 '"api/sms/click_to_login"' src/sources/gh/a.java
+          echo "== gh 包文件清单 =="
+          ls src/sources/gh/
+          echo "== Retrofit 构建处 =="
+          grep -rln 'baseUrl\|Retrofit' src/sources/gh/ | head -5
+          echo "SRC_END"
