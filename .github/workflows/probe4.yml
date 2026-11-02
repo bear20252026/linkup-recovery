@@ -1,6 +1,15 @@
 name: probe4-sms-send
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'sms or login'
+        required: true
+        default: 'sms'
+      code:
+        description: 'sms code (login mode only)'
+        required: false
+        default: ''
 permissions:
   contents: read
 jobs:
@@ -10,4 +19,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install requests pycryptodome
-      - run: python tools/probe5_login.py
+      - run: python tools/probe_login.py "${{ github.event.inputs.mode }}" "${{ github.event.inputs.code }}"
