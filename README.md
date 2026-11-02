@@ -59,3 +59,10 @@ cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条�
 `tools/gen_beans.py` 生成 79 个 data class，96/97 条路由有类型响应；两个 APK 都没保留 `@SerializedName`，
 说明线上 JSON key 就是字段名，并已用生产实时回包验证。测试 7 个全绿。
 `liveVerify` 修掉一个假绿隐患（旧版探测失败也返回成功）。详见 `report/08_typed_models_CN.md`。
+
+## 2026-11-02 再更新：AAR 接回 + 界面在 JVM 上真跑通
+
+`res166` 完成库自有资源剥离（依据各 AAR 真实清单，非前缀猜测；attr 重复大多藏在 styleable 子节点里），
+`:app` 接回 appcompat/material/constraintlayout 等。新增 Robolectric 测试真 inflate 还原布局，
+全套 9 tests / 0 failures，APK 57.9MB。另发现内部组件库 `com.mc.fastkit`（545 处引用）也不在公开仓，
+需从 APK 抽回。详见 `report/09_aar_strip_and_ui_runs_CN.md`。

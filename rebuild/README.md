@@ -65,3 +65,17 @@ sh tools/stage_assets.sh   # 打印重建这些输入所需的四条命令
 sh tools/gradle.sh :net:test        # 7 tests：5 个签名协议 + 2 个模型解析（用抓包留证）
 sh tools/gradle.sh :net:liveVerify  # 打生产，不通自动退回测试服；两台都不通则构建失败
 ```
+
+## AAR 已接回，界面可测
+
+`res166` 里的库自有资源已按各 AAR 的真实清单剥离（770 文件 + 3892 条目，见 `tools/strip_lib_res.py`
+与 `recovered/stripped_lib_resources.json`），`:app` 现在正常依赖 appcompat/material/constraintlayout/
+recyclerview/lottie/BRVAH 等。`android.nonTransitiveRClass=false`，否则 `:app` 的 `R` 看不到 `:res166`。
+
+```bash
+sh tools/gradle.sh :app:testDebugUnitTest   # Robolectric：真 inflate 还原布局，无需设备
+sh tools/gradle.sh :app:assembleDebug       # 57.9MB APK
+```
+
+已知缺口：`com.mc.fastkit`（545 处引用，内部组件库，公开仓没有）需从 APK 反编译产物抽成 `:fastkit`，
+在那之前列表行这类布局 inflate 不了。详见 `../report/09_aar_strip_and_ui_runs_CN.md`。
