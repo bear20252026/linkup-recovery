@@ -14,14 +14,20 @@ jobs:
         run: |
           set -e
           RID=$(gh run list -R bear20252026/linkup-recovery -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
-          echo "using run $RID"
           gh run download "$RID" -n linkup-166-src -D src -R bear20252026/linkup-recovery
-          find src/sources/k6 -name '*.java' | sort
-      - name: Dump key files
+      - name: Hunt signature client
         run: |
           echo "SRC_BEGIN"
-          for f in src/sources/k6/*.java; do echo "----- $f -----"; head -c 15000 "$f"; echo; done
-          echo "===== ag/a.java ====="; head -c 14000 src/sources/ag/a.java; echo
-          echo "===== vd/g0.java ====="; head -c 8000 src/sources/vd/g0.java; echo
-          echo "===== nf/b.java ====="; head -c 6000 src/sources/nf/b.java; echo
+          echo "== P1 路由字面量所在文件 =="
+          P1=$(grep -rln '"api/user/login"' src/sources | head -5); echo "$P1"
+          echo "== P2 aes128Encrypt 调用方 =="
+          P2=$(grep -rln 'aes128Encrypt' src/sources | head -8); echo "$P2"
+          echo "== P3 引号Signature =="
+          P3=$(grep -rln '"Signature"' src/sources | head -8); echo "$P3"
+          echo "== P4 引用 f1732c 基址的文件 =="
+          grep -rln 'f1732c' src/sources | head -10
+          echo "== DUMP =="
+          for f in $(echo "$P1 $P2 $P3" | tr ' ' '\n' | sort -u | head -14); do echo "----- $f -----"; head -c 22000 "$f"; echo; done
+          echo "== STRUCTURE =="
+          find src/sources/com/youloft/watcher -maxdepth 1 | sort | head -40
           echo "SRC_END"
