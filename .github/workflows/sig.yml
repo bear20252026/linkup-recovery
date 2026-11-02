@@ -12,4 +12,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pycryptodome requests
-      - run: python tools/probe.py
+      - run: python tools/probe2.py
