@@ -15,21 +15,16 @@ jobs:
           set -x
           RID=$(gh run list -R bear20252026/linkup-recovery -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
           gh run download "$RID" -n linkup-166-src -D src -R bear20252026/linkup-recovery
-      - name: Dump login chain
+      - name: Dump login body keys
         run: |
           echo "SRC_BEGIN"
-          echo "== hm 注解定义 =="
-          for x in f o t a; do echo "-- hm/$x.java:"; sed -n '1,35p' src/sources/hm/$x.java; echo; done || true
-          echo "== sms/send =="
-          (grep -B4 -A10 '"api/sms/send"' src/sources/gh/a.java || true)
-          echo "== user/login =="
-          (grep -B4 -A14 '"api/user/login"' src/sources/gh/a.java || true)
-          echo "== sms/login/cut =="
-          (grep -B4 -A10 '"api/sms/login/cut"' src/sources/gh/a.java || true)
-          echo "== sms/click_to_login =="
-          (grep -B4 -A10 '"api/sms/click_to_login"' src/sources/gh/a.java || true)
-          echo "== gh 包文件 =="
-          (ls src/sources/gh/ || true)
-          echo "== Retrofit 构建处 =="
-          (grep -rln 'baseUrl' src/sources/gh/ | head -5 || true)
+          echo "== region 关键词调用方 =="
+          (grep -rn '"region"' src/sources/com/youloft/watcher | head -10 || true)
+          echo "== 登录相关 map 构建 =="
+          (grep -rln 'login' src/sources/com/youloft/watcher/repository src/sources/com/youloft/watcher/manager | head -10 || true)
+          (grep -rn -B3 -A12 '"phone"' src/sources/com/youloft/watcher/repository/*.java | head -80 || true)
+          echo "== User bean token 字段 =="
+          (grep -n 'token\|Token' src/sources/com/youloft/watcher/bean/User.java | head -15 || true)
+          echo "== User bean 前40行 =="
+          (sed -n '1,40p' src/sources/com/youloft/watcher/bean/User.java || true)
           echo "SRC_END"
