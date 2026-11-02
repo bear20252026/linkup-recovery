@@ -9,5 +9,5 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: pip install requests
-      - run: python tools/probe4_sms.py
+      - run: pip install requests pycryptodome
+      - run: python tools/probe5_login.py
