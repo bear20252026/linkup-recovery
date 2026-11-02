@@ -1,0 +1,270 @@
+=== Native libraries ===
+
+[arm64-v8a]  (size desc)
+    11,956,928 B   libBaiduMapSDK_map_v7_6_4.so                   百度地图
+     7,143,280 B   libhyphenate.so                                (未知)
+     1,596,896 B   libindoor.so                                   (未知)
+     1,583,472 B   libcipherdb.so                                 (未知)
+     1,502,480 B   libttmplayer_lite.so                           字节
+     1,120,672 B   libPglbizssdk_ml.so                            (未知)
+       991,920 B   libc++_shared.so                               (未知)
+       825,280 B   libsls_producer.so                             阿里云SLS
+       747,584 B   libavmdl_lite.so                               (未知)
+       647,928 B   libcrashsdk.so                                 (未知)
+       521,992 B   libmmkv.so                                     腾讯 MMKV
+       516,368 B   libBaiduMapSDK_base_v7_6_4.so                  百度地图
+       498,176 B   libCtaApiLib.so                                (未知)
+       440,672 B   libtt_ugen_layout.so                           字节
+       398,472 B   libumeng-spy.so                                友盟
+       376,632 B   libplt-base.so                                 (未知)
+       359,488 B   liblocSDK8b.so                                 百度定位,定位通用
+       308,616 B   libturingad.so                                 (未知)
+       251,264 B   libpanglearmor.so                              字节穿山甲
+       247,352 B   libumonitor.so                                 (未知)
+       240,544 B   libzxprotect.so                                (未知)
+       115,872 B   libti-monitor.so                               (未知)
+        97,280 B   libucrash-core.so                              (未知)
+        88,264 B   libsgcore.so                                   (未知)
+        84,168 B   libtiny_magic.so                               (未知)
+        51,648 B   libucrash.so                                   (未知)
+        43,384 B   libtobEmbedEncrypt.so                          (未知)
+        29,008 B   libimage_processing_util_jni.so                图像处理
+        18,304 B   libn.so                                        (未知)
+        10,064 B   libpangleflipped.so                            字节穿山甲
+
+
+=== 疑似业务/自研 .so ===
+        43,384 B   libtobEmbedEncrypt.so
+
+
+=== Assets (>= 20KB) ===
+     3,419,135 B   assets/vip/vip_red_packet.json
+     3,043,076 B   assets/cfg/a/mode_1/map.rs
+     2,096,226 B   assets/gdt_plugin/gdtadv2.jar
+     1,703,532 B   assets/bdxadsdk.jar
+     1,565,954 B   assets/cfg/a/mode_1/englishmap.sty
+     1,505,555 B   assets/cfg/a/mode_1/map.sty
+       759,683 B   assets/vip/vip_expired.json
+       736,236 B   assets/vip/vip_expired_soon.json
+       628,066 B   assets/home/default_friend_remind2.json
+       576,823 B   assets/cfg/a/mode_1/indoor.rs
+       533,340 B   assets/vip/vip_retain.json
+       432,245 B   assets/guide/guide_report.json
+       399,576 B   assets/guide/guide_usage.json
+       350,161 B   assets/cfg/a/mode_1/reduct.rs
+       293,711 B   assets/cfg/a/mode_2/map.sty
+       285,006 B   assets/guide/guide_track.json
+       280,733 B   assets/guide/guide_location.json
+       278,208 B   assets/vip_sensitive_records.json
+       236,230 B   assets/vip_location_track.json
+       234,142 B   assets/vip_unlimited_friends.json
+       230,900 B   assets/vip_health_use_phone.json
+       219,005 B   assets/vip/vip_banner_report.json
+       215,931 B   assets/cfg/a/mode_1/reduct.sty
+       187,691 B   assets/cfg/a/mode_1/traffic.sty
+       182,345 B   assets/vip_auto_reporting.json
+       180,570 B   assets/vip_shared_two.json
+       176,918 B   assets/vip/vip_banner_app.json
+       165,658 B   assets/vip/vip_banner_track.json
+       158,977 B   assets/vip/vip_banner_phone.json
+       145,877 B   assets/voice_help_dialog.json
+       140,133 B   assets/lock/lock_help_page.json
+       140,129 B   assets/vip/vip_banner_friends.json
+       138,793 B   assets/cfg/a/DVDirectory.cfg
+       138,663 B   assets/lock/lock_help_dialog.json
+       136,465 B   assets/guide/guide_lock.json
+       131,766 B   assets/cfg/a/mode_1/traffic.rs
+       112,604 B   assets/lock/answer_unlock.json
+       111,175 B   assets/tracker_tips.json
+       106,564 B   assets/vip_card_friends.json
+       102,687 B   assets/ic_follow_friend.json
+        82,340 B   assets/cfg/a/mode_1/indoor.sty
+        80,926 B   assets/home/default_friend_remind1.json
+        76,165 B   assets/vip/vip_banner_voice.json
+        75,511 B   assets/vip_card_track.json
+        68,315 B   assets/vip_card_report.json
+        64,798 B   assets/vip/vip_banner_lock.json
+        60,196 B   assets/vip_shared_more.json
+        58,778 B   assets/lock/unlock.json
+        50,595 B   assets/vip_card_app.json
+        42,869 B   assets/vip_pay_button_double.json
+        41,066 B   assets/vip_pay_button_multi.json
+        40,877 B   assets/vip_shared_three.json
+        37,178 B   assets/video_yh_loading_icon.png
+        36,521 B   assets/home/vip.json
+        34,118 B   assets/hmsrootcas.bks
+        31,679 B   assets/home/add_friend_banner.json
+        31,210 B   assets/vip_pay_button.json
+        30,136 B   assets/lock/lock.json
+        26,489 B   assets/match_successful.json
+        24,910 B   assets/match_successful_accept.json
+        24,898 B   assets/login/black.json
+        24,669 B   assets/cfg/a/DVStreet.cfg
+        24,647 B   assets/login/white.json
+        23,325 B   assets/tab_guard.json
+        23,082 B   assets/tab_im.json
+        22,889 B   assets/tab_todo.json
+
+
+=== All Assets ===
+         803 B   assets/CircleDashTexture.png
+       5,559 B   assets/SDK_Default_Icon_Car.png
+       4,097 B   assets/SDK_Default_Icon_End.png
+         706 B   assets/SDK_Default_Icon_Passenger.png
+       3,887 B   assets/SDK_Default_Icon_Start.png
+         888 B   assets/SDK_Default_Route_Texture_Bule_Arrow.png
+       1,384 B   assets/SDK_Default_Route_Texture_Gray_Arrow.png
+         927 B   assets/SDK_Default_Traffic_Texture_Congestion.png
+         962 B   assets/SDK_Default_Traffic_Texture_SevereCongestion.png
+         865 B   assets/SDK_Default_Traffic_Texture_Slow.png
+         980 B   assets/SDK_Default_Traffic_Texture_Smooth.png
+       3,423 B   assets/SDK_SYNC_Default_Icon_End.png
+       3,204 B   assets/SDK_SYNC_Default_Icon_Start.png
+       2,223 B   assets/SDK_SYNC_Default_Way_Point_End.png
+       2,774 B   assets/SDK_SYNC_Default_Way_Point_No_Pass.png
+       2,176 B   assets/SDK_SYNC_Default_Way_Point_Passed.png
+       2,296 B   assets/SDK_SYNC_Default_Way_Point_Start.png
+      14,006 B   assets/add_friend.svga
+   1,703,532 B   assets/bdxadsdk.jar
+     138,793 B   assets/cfg/a/DVDirectory.cfg
+      11,174 B   assets/cfg/a/DVHotMap.cfg
+       1,937 B   assets/cfg/a/DVHotcity.cfg
+       7,483 B   assets/cfg/a/DVSDirectory.cfg
+      24,669 B   assets/cfg/a/DVStreet.cfg
+       2,084 B   assets/cfg/a/DVVersion_pkg.cfg
+   1,565,954 B   assets/cfg/a/mode_1/englishmap.sty
+     576,823 B   assets/cfg/a/mode_1/indoor.rs
+      82,340 B   assets/cfg/a/mode_1/indoor.sty
+   3,043,076 B   assets/cfg/a/mode_1/map.rs
+   1,505,555 B   assets/cfg/a/mode_1/map.sty
+     350,161 B   assets/cfg/a/mode_1/reduct.rs
+     215,931 B   assets/cfg/a/mode_1/reduct.sty
+     131,766 B   assets/cfg/a/mode_1/traffic.rs
+     187,691 B   assets/cfg/a/mode_1/traffic.sty
+       2,405 B   assets/cfg/a/mode_2/map.rs
+     293,711 B   assets/cfg/a/mode_2/map.sty
+       1,374 B   assets/cfg/a/street.sty
+          56 B   assets/com.tencent.open.config.json
+         266 B   assets/cucc/host_cucc.properties
+       6,189 B   assets/dexopt/baseline.prof
+         511 B   assets/dexopt/baseline.profm
+       3,641 B   assets/firework_bullet.png
+      15,384 B   assets/firework_tail.png
+       1,273 B   assets/flower.png
+   2,096,226 B   assets/gdt_plugin/gdtadv2.jar
+       7,356 B   assets/grs_sdk_global_route_config_opendevicesdk.json
+      10,277 B   assets/grs_sdk_global_route_config_opensdkService.json
+         370 B   assets/grs_sdk_server_config.json
+       1,470 B   assets/grs_sp.bks
+     280,733 B   assets/guide/guide_location.json
+     136,465 B   assets/guide/guide_lock.json
+     432,245 B   assets/guide/guide_report.json
+     285,006 B   assets/guide/guide_track.json
+     399,576 B   assets/guide/guide_usage.json
+         116 B   assets/h5_qr_back.png
+       3,670 B   assets/hmsincas.bks
+      34,118 B   assets/hmsrootcas.bks
+      31,679 B   assets/home/add_friend_banner.json
+       8,422 B   assets/home/data_recover.json
+      80,926 B   assets/home/default_friend_remind1.json
+     628,066 B   assets/home/default_friend_remind2.json
+       4,846 B   assets/home/received_rt_voice.json
+       9,021 B   assets/home/send_voice.json
+      36,521 B   assets/home/vip.json
+     102,687 B   assets/ic_follow_friend.json
+      19,240 B   assets/ic_mine_vip_crown.json
+       3,784 B   assets/ic_permission_finger.json
+       2,265 B   assets/icon_arrow.png
+         750 B   assets/icon_blue.png
+         193 B   assets/icon_scale.9.png
+       2,880 B   assets/ksad_common_encrypt_image.png
+         394 B   assets/ksad_idc.json
+      17,636 B   assets/libwbsafeedit
+      18,024 B   assets/libwbsafeedit_64
+      17,600 B   assets/libwbsafeedit_x86
+      18,344 B   assets/libwbsafeedit_x86_64
+         194 B   assets/lineDashTexture.png
+         856 B   assets/lineDash_Rectangle.png
+         133 B   assets/line_texture.png
+         896 B   assets/loading.svga
+     112,604 B   assets/lock/answer_unlock.json
+      30,136 B   assets/lock/lock.json
+     138,663 B   assets/lock/lock_help_dialog.json
+     140,133 B   assets/lock/lock_help_page.json
+      18,112 B   assets/lock/lock_phone_button.json
+      58,778 B   assets/lock/unlock.json
+      24,898 B   assets/login/black.json
+      24,647 B   assets/login/white.json
+       2,706 B   assets/logo_h.png
+       1,321 B   assets/logo_l.png
+       2,645 B   assets/lottie_json/shake_phone.json
+       7,273 B   assets/lottie_json/swipe_right.json
+      18,983 B   assets/lottie_json/twist_multi_angle.json
+         511 B   assets/main_bottombtn_down.9.png
+         576 B   assets/main_bottombtn_up.9.png
+         161 B   assets/main_icon_zoomin.png
+         169 B   assets/main_icon_zoomin_dis.png
+         142 B   assets/main_icon_zoomout.png
+         142 B   assets/main_icon_zoomout_dis.png
+         497 B   assets/main_topbtn_down.9.png
+         528 B   assets/main_topbtn_up.9.png
+      26,489 B   assets/match_successful.json
+      24,910 B   assets/match_successful_accept.json
+      13,694 B   assets/match_successful_add.json
+       2,094 B   assets/na.czl
+       2,047 B   assets/saio_res/zt_010a11c6-f2cb-4016-887d-0d958aef1534.png
+       1,835 B   assets/saio_res/zt_0d2aa853-8455-41b5-b06c-9a36680ef3f0.png
+       1,828 B   assets/saio_res/zt_0dc6922f-e3ee-4c57-8eb1-b72d86635497.png
+       1,825 B   assets/saio_res/zt_455dbffe-35f7-4ee5-9d5c-3baae8dbed9f.png
+       1,833 B   assets/saio_res/zt_5bbcf3cd-727b-48ab-b4b4-5f01e61ee9a5.png
+       1,987 B   assets/saio_res/zt_7e46b28a-8c93-4940-8238-4c60e64e3c81.png
+      13,352 B   assets/splash_app_name.json
+      18,816 B   assets/tab_camera.json
+      23,325 B   assets/tab_guard.json
+      23,082 B   assets/tab_im.json
+      16,179 B   assets/tab_mine.json
+      18,297 B   assets/tab_more.json
+      22,889 B   assets/tab_todo.json
+       8,747 B   assets/track_palette.png
+       8,052 B   assets/track_projection_palette.png
+     111,175 B   assets/tracker_tips.json
+      37,178 B   assets/video_yh_loading_icon.png
+     176,918 B   assets/vip/vip_banner_app.json
+     140,129 B   assets/vip/vip_banner_friends.json
+      64,798 B   assets/vip/vip_banner_lock.json
+     158,977 B   assets/vip/vip_banner_phone.json
+     219,005 B   assets/vip/vip_banner_report.json
+     165,658 B   assets/vip/vip_banner_track.json
+      76,165 B   assets/vip/vip_banner_voice.json
+     759,683 B   assets/vip/vip_expired.json
+     736,236 B   assets/vip/vip_expired_soon.json
+   3,419,135 B   assets/vip/vip_red_packet.json
+     533,340 B   assets/vip/vip_retain.json
+     182,345 B   assets/vip_auto_reporting.json
+      18,544 B   assets/vip_buy_cancel.json
+      16,869 B   assets/vip_buy_failed.json
+      19,002 B   assets/vip_buy_success.json
+      50,595 B   assets/vip_card_app.json
+     106,564 B   assets/vip_card_friends.json
+      12,957 B   assets/vip_card_phone.json
+      68,315 B   assets/vip_card_report.json
+      75,511 B   assets/vip_card_track.json
+     230,900 B   assets/vip_health_use_phone.json
+     236,230 B   assets/vip_location_track.json
+      31,210 B   assets/vip_pay_button.json
+      42,869 B   assets/vip_pay_button_double.json
+      41,066 B   assets/vip_pay_button_multi.json
+     278,208 B   assets/vip_sensitive_records.json
+      17,143 B   assets/vip_share_cancel.json
+      60,196 B   assets/vip_shared_more.json
+      40,877 B   assets/vip_shared_three.json
+     180,570 B   assets/vip_shared_two.json
+     234,142 B   assets/vip_unlimited_friends.json
+       7,802 B   assets/voice_countdown.json
+       9,957 B   assets/voice_downloading.json
+     145,877 B   assets/voice_help_dialog.json
+      11,852 B   assets/voice_playing.json
+       1,873 B   assets/wear_zoom_in.png
+       1,851 B   assets/wear_zoom_in_pressed.png
+       1,757 B   assets/wear_zoom_out_pressed.png
+       1,771 B   assets/wear_zoon_out.png
