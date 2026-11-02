@@ -1,0 +1,29 @@
+name: dump-sources
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download decompiled source artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          RID=$(gh run list -w decompile-166 -L 1 --json databaseId -q '.[0].databaseId')
+          echo "using run $RID"
+          gh run download "$RID" -n linkup-166-src -D src
+          find src/sources/k6 -name '*.java' | sort
+      - name: Dump key files
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "SRC_BEGIN"
+          for f in src/sources/k6/*.java; do echo "----- $f -----"; head -c 15000 "$f"; echo; done
+          echo "===== ag/a.java ====="; head -c 14000 src/sources/ag/a.java; echo
+          echo "===== vd/g0.java ====="; head -c 8000 src/sources/vd/g0.java; echo
+          echo "===== nf/b.java ====="; head -c 6000 src/sources/nf/b.java; echo
+          echo "SRC_END"
