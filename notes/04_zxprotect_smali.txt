@@ -1,0 +1,127 @@
+[*] Loading APK (may take a minute)...
+[+] Loaded. 7 dex objects
+
+=== com.zx.a.* 类共 162 个 ===
+  Lcom/zx/a/I8b7/a0;  methods=1  fields=0
+  Lcom/zx/a/I8b7/a1$a;  methods=3  fields=5
+  Lcom/zx/a/I8b7/a1;  methods=6  fields=10
+  Lcom/zx/a/I8b7/a2;  methods=2  fields=6
+  Lcom/zx/a/I8b7/v2;  methods=0  fields=0
+  Lcom/zx/a/I8b7/a3;  methods=2  fields=5
+  Lcom/zx/a/I8b7/a;  methods=4  fields=2
+  Lcom/zx/a/I8b7/b0;  methods=1  fields=0
+  Lcom/zx/a/I8b7/c1;  methods=3  fields=0
+  Lcom/zx/a/I8b7/b1;  methods=1  fields=4
+  Lcom/zx/a/I8b7/b2;  methods=2  fields=4
+  Lcom/zx/a/I8b7/c;  methods=6  fields=1
+  Lcom/zx/a/I8b7/b3;  methods=18  fields=11
+  Lcom/zx/a/I8b7/b;  methods=4  fields=3
+  Lcom/zx/a/I8b7/c0$a;  methods=0  fields=0
+  Lcom/zx/a/I8b7/c0;  methods=1  fields=0
+  Lcom/zx/a/I8b7/c2;  methods=2  fields=3
+  Lcom/zx/a/I8b7/c3$a$a;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$a;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$b$a;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$b;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$c$a;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$c;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$d$a;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$d;  methods=2  fields=0
+  Lcom/zx/a/I8b7/c3$e;  methods=1  fields=1
+  Lcom/zx/a/I8b7/c3;  methods=1  fields=4
+  Lcom/zx/a/I8b7/y;  methods=2  fields=0
+  Lcom/zx/a/I8b7/d0;  methods=3  fields=2
+  Lcom/zx/a/I8b7/d1$a;  methods=3  fields=10
+  Lcom/zx/a/I8b7/d1;  methods=3  fields=10
+  Lcom/zx/a/I8b7/d2;  methods=2  fields=4
+  Lcom/zx/a/I8b7/d3;  methods=21  fields=6
+  Lcom/zx/a/I8b7/d;  methods=1  fields=0
+  Lcom/zx/a/I8b7/z;  methods=1  fields=0
+  Lcom/zx/a/I8b7/e0;  methods=2  fields=0
+  Lcom/zx/a/I8b7/e1;  methods=5  fields=2
+  Lcom/zx/a/I8b7/e1$a;  methods=1  fields=3
+  Lcom/zx/a/I8b7/e2$a;  methods=2  fields=2
+  Lcom/zx/a/I8b7/e2$b;  methods=1  fields=1
+
+=== Native methods in com.zx.a.* ===
+  Lcom/zx/a/I8b7/d3;::a()Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::a(Landroid/content/Context;)Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::a(Ljava/lang/String;)Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::b(Ljava/lang/String;)Landroid/content/pm/PackageInfo;  access=0x109
+  Lcom/zx/a/I8b7/d3;::b(Landroid/content/Context;)Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::d(Landroid/content/Context;)Lcom/zx/a/I8b7/i1;  access=0x109
+  Lcom/zx/a/I8b7/d3;::d()Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::e(Landroid/content/Context;)J  access=0x109
+  Lcom/zx/a/I8b7/d3;::e()Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::f()Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::f(Landroid/content/Context;)Z  access=0x10a
+  Lcom/zx/a/I8b7/d3;::g()Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/d3;::h()J  access=0x109
+  Lcom/zx/a/I8b7/d3;::i()Z  access=0x109
+  Lcom/zx/a/I8b7/e2;::a(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;  access=0x101
+  Lcom/zx/a/I8b7/f1;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/f1;::a(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/g1;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/g1;::a(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/g;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/g;::a(Ljava/lang/String;)V  access=0x109
+  Lcom/zx/a/I8b7/h1;::a(Ljava/lang/String;)Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/h1;::b()Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/h;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/h;::b()Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/j1;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/j1;::b()Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/j;::a(Ljava/lang/String; Z)Ljava/lang/String;  access=0x109
+  Lcom/zx/a/I8b7/o2;::a(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Lcom/zx/sdk/api/SAIDCallback;)Ljava/lang/String;  access=0x101
+  Lcom/zx/a/I8b7/o2;::a(Ljava/lang/String; Lcom/zx/sdk/api/Callback;)V  access=0x101
+  Lcom/zx/a/I8b7/o2;::a(Z)V  access=0x101
+  Lcom/zx/a/I8b7/o2;::b(Ljava/lang/String; Lcom/zx/sdk/api/Callback;)V  access=0x101
+  Lcom/zx/a/I8b7/p2;::a()I  access=0x10a
+  Lcom/zx/a/I8b7/p2;::a(Ljava/lang/String; I)Landroid/content/pm/PackageInfo;  access=0x109
+  Lcom/zx/a/I8b7/p2;::a(Ljava/lang/String; I I)Landroid/content/pm/PackageInfo;  access=0x10a
+  Lcom/zx/a/I8b7/p2;::b(Ljava/lang/String; I)Landroid/content/pm/PackageInfo;  access=0x10a
+  Lcom/zx/a/I8b7/r0;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/u2$a;::a(Landroid/net/Network; Ljava/lang/String;)V  access=0x102
+  Lcom/zx/a/I8b7/u2;::a(Ljava/lang/String;)Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/u2;::a(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/u2;::a()Lorg/json/JSONObject;  access=0x102
+  Lcom/zx/a/I8b7/u2;::a(Lorg/json/JSONObject; Lcom/zx/module/base/Callback; I)V  access=0x102
+  Lcom/zx/a/I8b7/u2;::b(Ljava/lang/String;)Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/u2;::b()[Ljava/lang/String;  access=0x112
+  Lcom/zx/a/I8b7/u2;::c()Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/u2;::d()[Ljava/lang/String;  access=0x112
+  Lcom/zx/a/I8b7/u2;::e()Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/u2;::f()[Ljava/lang/String;  access=0x112
+  Lcom/zx/a/I8b7/u2;::g()Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/u2;::h()[Ljava/lang/String;  access=0x112
+  Lcom/zx/a/I8b7/u2;::i()Ljava/lang/String;  access=0x102
+  Lcom/zx/a/I8b7/v;::a()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/w;::a(Ljava/net/HttpURLConnection;)V  access=0x109
+  Lcom/zx/a/I8b7/w;::c()Ljavax/net/ssl/SSLSocketFactory;  access=0x10a
+  Lcom/zx/a/I8b7/w;::g()[Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/w;::h()[Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Ljava/lang/String; Ljava/lang/String; Lorg/json/JSONObject;)Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Ljava/lang/String; Lorg/json/JSONObject;)Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a()Ljava/util/HashMap;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Ljava/lang/String;)Ljava/util/HashMap;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Lorg/json/JSONArray;)Ljava/util/HashMap;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Lorg/json/JSONArray; Lorg/json/JSONObject;)Ljava/util/HashMap;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Lorg/json/JSONArray; Ljava/util/HashMap; Lorg/json/JSONObject;)Lorg/json/JSONObject;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Ljava/util/HashMap; Ljava/lang/String; Lorg/json/JSONObject; Ljava/util/HashMap; Z)V  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Lorg/json/JSONObject;)V  access=0x10a
+  Lcom/zx/a/I8b7/z0;::a(Lorg/json/JSONObject; Ljava/util/HashMap; Ljava/lang/String; Ljava/lang/String;)V  access=0x10a
+  Lcom/zx/a/I8b7/z0;::b()Lorg/json/JSONObject;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::b(Lorg/json/JSONArray; Ljava/util/HashMap; Lorg/json/JSONObject;)Lorg/json/JSONObject;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::c()Ljava/lang/String;  access=0x129
+  Lcom/zx/a/I8b7/z0;::c(Lorg/json/JSONArray; Ljava/util/HashMap; Lorg/json/JSONObject;)Lorg/json/JSONObject;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::d()Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::e()Lorg/json/JSONObject;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::f()Ljava/lang/String;  access=0x10a
+  Lcom/zx/a/I8b7/z0;::g()Lorg/json/JSONObject;  access=0x10a
+
+=== Callers of com.zx.a.* (xref) ===
+  com.zx.sdk.api.ZXManager                                                -> 5 处
+  com.zx.sdk.common.utils.ZXTask                                          -> 2 处
+  com.zx.sdk.api.ZXID                                                     -> 1 处
+
+=== okhttp3 / Interceptor 相关类 (业务前缀) ===
