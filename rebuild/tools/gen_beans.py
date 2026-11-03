@@ -48,7 +48,9 @@ def index_classes():
 
 IDX = index_classes()
 
-FIELD_RE = re.compile(r'^\s*(?:private|public|protected)\s+(?:static\s+)?(?:final\s+)?'
+# `static` is excluded on purpose: Parcelable beans carry a `public static final Creator<X> CREATOR`
+# field that Gson does not serialize, and it was landing in the generated data classes.
+FIELD_RE = re.compile(r'^\s*(?:private|public|protected)\s+(?!static\b)(?:final\s+)?'
                       r'([\w.$<>,?\s\[\]]+?)\s+(\w+)\s*(?:=.*)?;\s*$')
 ANN_RE = re.compile(r'@(?:vl|pl|kotlin\.jvm\.internal)\.(l|m)\b')
 
@@ -136,7 +138,8 @@ def map_type(raw, nullable, queue):
     if re.fullmatch(r"[A-Z]", head):        # a type variable (T/E) stays a type variable
         return head + ("?" if nullable else "")
     if head in TYPE_MAP:
-        return TYPE_MAP[head] + ("?" if nullable else "")
+        mapped = TYPE_MAP[head]
+        return mapped if mapped.endswith("?") or not nullable else mapped + "?"
 
     entry = IDX.get(head)
     if entry is None:

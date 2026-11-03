@@ -73,3 +73,10 @@ cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条�
 Robolectric 逐个 inflate 全部 829 个布局的结果：**业务命名布局 335 个里 260 个今天能跑（77%）**；
 425 个失败中 276 个属广告 SDK 自带 UI、43 个才是我方自有 View（25 个类，已列清单可当排期）。
 详见 `report/10_fastkit_and_inflate_survey_CN.md`。10 tests / 0 failures，APK 57.9MB。
+
+## 2026-11-03 再更新：第一屏逐屏重建跑通（好友申请列表）
+
+分页状态机、行渲染三态、同意键的四条前置闸门与 500ms 去抖，全部按 1.5.6 可读源逐条还原并写成出处对照表；
+`:app` 单测 20 条（这一屏 17 条）全绿，含真实视图点击到网络层的整链路，APK 60.6MB，业务布局可 inflate 仍 306/335。
+顺带纠两处地基错：ViewBinding 只能开在 `:app`（`:res166` 里厂商 View 不在 classpath，codegen 必挂）、
+APK 用的 BRVAH 是 `adapter4`（4.x）而不是 3.0.10。详见 `report/14_first_screen_vertical_slice_CN.md`。

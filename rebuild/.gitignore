@@ -6,3 +6,7 @@ local.properties
 *.zip
 *.log
 __pycache__/
+
+# publish-only: keep derived tooling and vendor binaries out of the public repo
+tools/jadx/
+app/src/main/assets/
