@@ -89,3 +89,16 @@ APK 用的 BRVAH 是 `adapter4`（4.x）而不是 3.0.10。详见 `report/14_fir
 顺带定死一条影响每一屏的架构问题：DTO 在纯 JVM 模块里拿不到 Parcelable，
 改由 `gen_beans.py` 给字段图干净的 61/79 个 bean 加 `java.io.Serializable` 负责跨屏传递。
 详见 `report/15_detail_screen_CN.md`。
+
+## 2026-11-03 再更新：第三屏「我的好友」跑通，并挖出两处静默的 DTO 缺陷
+
+这一屏没有 ViewModel、没有分页、不发 HTTP——它订阅的是 IM 维护的好友列表与变更命令，
+所以重建把缺的**数据源接口**定形（`FriendListSource`）而不是塞个假数据把屏糊过去。
+还原要点：空列表屏自己 finish()、`userId<=0` 先过滤、主账号插最前、加友入口三种 mode、
+命令 type∉{1,100} 才处理且先置 null 消费。
+
+顺带两处**能编译、测试也可能过、只有打线上才露馅**的生成器缺陷：嵌套 bean 被摊平
+（`FriendList.Info` 在重建里压根不存在）与 jadx 改名污染 JSON key（11 处 `id`/`rh` 永远解析不出来）。
+现在按花括号范围分字段、从 `renamed from:` 注释取回真名：9 个嵌套 bean 恢复。
+
+`:app` 49 tests / 0 failures（好友流三屏 46 条），`:net` 7 / 0，APK 内实测含 MyFriendActivity。详见 `report/16`。
