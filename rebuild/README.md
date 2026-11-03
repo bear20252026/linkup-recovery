@@ -38,7 +38,9 @@ sh tools/gradle.sh :app:assembleDebug
 
 ## 在本仓库里 clone 之后
 
-`assets/`、两个 APK、反编译输出都不在 git 里（体积原因，且都能从 Release v1.0 重现）：
+**被布局引用的 asset 已随仓库走**（43 个 Lottie/SVGA JSON + 同目录图片，约 3.7MB）——
+没有它们，`activity_login`、`activity_locked_preview` 等 13 个业务布局会 inflate 失败，
+clone 出来的可跑率会比本地低 4 个点（87% vs 91%）。其余 asset（25MB 二进制）仍按下面的脚本还原：
 
 ```bash
 sh tools/stage_assets.sh   # 打印重建这些输入所需的四条命令
