@@ -91,3 +91,16 @@ sh tools/gradle.sh :app:assembleDebug       # 57.9MB APK
 sh tools/gradle.sh :app:testDebugUnitTest --tests "*UiInflateSurvey*"   # 逐个 inflate 全部 829 布局
 python tools/summarize_inflate.py                                       # 汇总成 ui_inflate_summary.json
 ```
+
+## 改依赖之后必须重跑资源剥离
+
+`:res166` 装的是 APK 合并后的资源表，和真实 AAR 同时在依赖图里会造成 attr 重复定义。
+所以**增删任何三方依赖后**都要执行：
+
+```bash
+sh tools/rebuild_bank.sh     # 刷新依赖清单 → 重迁资源 → 改名 → deltas → 按 AAR 真实清单剥离
+sh tools/gradle.sh :app:assembleDebug
+```
+
+脚本会先跑 `:app:fetchDebugArtifacts` 把 .aar 下载到位——`gradle :app:dependencies` 只解析元数据，
+漏了这一步会有库的资源根本没被剥（我们为此踩过一次）。
