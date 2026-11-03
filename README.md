@@ -66,3 +66,10 @@ cd rebuild && sh tools/gradle.sh :net:liveVerify  # 对真实测试服发一条�
 `:app` 接回 appcompat/material/constraintlayout 等。新增 Robolectric 测试真 inflate 还原布局，
 全套 9 tests / 0 failures，APK 57.9MB。另发现内部组件库 `com.mc.fastkit`（545 处引用）也不在公开仓，
 需从 APK 抽回。详见 `report/09_aar_strip_and_ui_runs_CN.md`。
+
+## 2026-11-02 再更新：内部组件库 :fastkit 已重建，UI 可跑面量化完成
+
+`com.mc.fastkit`（545 处引用、公开仓没有）按 1.5.6 反编译产物重建为 `:fastkit`，覆盖布局中全部 14 个标签。
+Robolectric 逐个 inflate 全部 829 个布局的结果：**业务命名布局 335 个里 260 个今天能跑（77%）**；
+425 个失败中 276 个属广告 SDK 自带 UI、43 个才是我方自有 View（25 个类，已列清单可当排期）。
+详见 `report/10_fastkit_and_inflate_survey_CN.md`。10 tests / 0 failures，APK 57.9MB。

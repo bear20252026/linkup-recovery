@@ -79,3 +79,15 @@ sh tools/gradle.sh :app:assembleDebug       # 57.9MB APK
 
 已知缺口：`com.mc.fastkit`（545 处引用，内部组件库，公开仓没有）需从 APK 反编译产物抽成 `:fastkit`，
 在那之前列表行这类布局 inflate 不了。详见 `../report/09_aar_strip_and_ui_runs_CN.md`。
+
+## `:fastkit`（内部组件库的重建）
+
+`com.mc.fastkit` 在布局里有 545 处引用、公开仓没有，已按 1.5.6 反编译产物重建为 `:fastkit` 模块，
+覆盖布局中出现的全部 14 个标签。`SheetLayout` 与 `mc_font` 刻意未实现，见 `../report/10_*.md`。
+
+体检工具（能量化"还原的 UI 今天能跑多少"）：
+
+```bash
+sh tools/gradle.sh :app:testDebugUnitTest --tests "*UiInflateSurvey*"   # 逐个 inflate 全部 829 布局
+python tools/summarize_inflate.py                                       # 汇总成 ui_inflate_summary.json
+```
