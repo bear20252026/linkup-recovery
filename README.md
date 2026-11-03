@@ -80,3 +80,12 @@ Robolectric 逐个 inflate 全部 829 个布局的结果：**业务命名布局 
 `:app` 单测 20 条（这一屏 17 条）全绿，含真实视图点击到网络层的整链路，APK 60.6MB，业务布局可 inflate 仍 306/335。
 顺带纠两处地基错：ViewBinding 只能开在 `:app`（`:res166` 里厂商 View 不在 classpath，codegen 必挂）、
 APK 用的 BRVAH 是 `adapter4`（4.x）而不是 3.0.10。详见 `report/14_first_screen_vertical_slice_CN.md`。
+
+## 2026-11-03 再更新：第二屏跑通，列表→详情第一次是真跳转
+
+好友申请详情按 1.5.6 还原（整屏只有"同意"键、三条前置闸门、500ms 间隔点击、非 0 态禁用改文案），
+列表屏的跳转目标从空实现换成真 `startActivity`，并由测试断言 bean 在 Intent 里存活。
+`:app` 35 tests / 0 failures，APK 内实测含该 Activity 与清单条目。
+顺带定死一条影响每一屏的架构问题：DTO 在纯 JVM 模块里拿不到 Parcelable，
+改由 `gen_beans.py` 给字段图干净的 61/79 个 bean 加 `java.io.Serializable` 负责跨屏传递。
+详见 `report/15_detail_screen_CN.md`。
