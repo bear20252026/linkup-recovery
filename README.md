@@ -154,3 +154,27 @@ section 读出来的；`showPermissionChannel` 走**三方配置 SDK**（`of.b.f
 还剩什么：短信/一键登录屏没重建（号码认证 SDK + `/api/sms/send`，后者我不碰），所以真机今天要么等登录屏、
 要么先 `adb` 灌 token；探针屏已加 `GET api/user/info` → 打印 cached userId/mainUser/isVip/tokenStored 这条可验路径。
 `:app` 101 tests / 0 failures（合计 108），APK 60.6→61.3MB（MMKV native 库所致）。详见 `report/20`。
+
+## 2026-11-04 再更新：#15 添加好友屏——四条找人路径闭环，顺带还原了通讯录封套协议
+
+这屏是好友流程的**入口**，也是第一屏出现「不能照 1.5.6 重建」的情况：1.6.6 的 ViewBinding 字段名全部活着，
+于是行为可读，而且 1.6.6 **比 1.5.6 多一整个屏内搜索链路**（输入框 + 清空键/搜索键 + IME 搜索 + focus 与键盘遮罩
++ 直接消费 `match_by_phone`）。规则已改成「1.6.6 binding 存在就以 1.6.6 行为为准」，写进 DESIGN 第六节第 12 条。
+
+三处 View 落差逐一定性，不是一句「没搬」：`iv_download`＋`ShareMatchCodeView` 确被删除（下载二维码整条入口）；
+`llHuaweiTips` 是**换宿主**到页底 `tv_tips`（渠道判据与三条文案分支完全一致）；`sclScan` 变成 `tvScanAdd`。
+
+硬货是**通讯录搜索的封套协议**（首次完整还原并测试）：内层 `{"phoneList":[…]}` 只做 Base64 放进 `ciphertext`、
+外层 `{keyID,ciphertext,timestamp}` 用随机 16 字节 AES/CBC/PKCS7 且 **IV 就是同一串 key**、key 用
+`RSA/ECB/OAEPWithSHA-256AndMGF1Padding` 包，PEM 结束标记是**四个横杠**；公钥拿不到时不发请求、不报网络错，
+自己 post 一个 `10086` 空壳，界面连「匹配码无效」都不弹、只清空输入框。测试顺手抓到一个真 bug：Gson 默认把 `=`
+转义成 `\u003d` 会毁掉内层 Base64，必须 `disableHtmlEscaping()`（原版用 org.json 不受影响）。
+
+另一个外部依赖当场解掉一半：加完好友弹不弹权限设置，1.5.6 读远程配置 `showPermissionChannel`（含 `-1` 通配），
+**1.6.6 四个调用点全改成「渠道号==3301」硬编码**。我们的包没有渠道段，所以这条现在恒 false —— 要真机验得先做 #17。
+
+`:app` 140 tests / 0 failures（本轮 +32 屏 +6 弹窗）、`:net` 10 / 0（+3 封套），合计 **150 全绿**；APK 59.1MB，
+新类与新布局已进包。业务布局 inflate 仍 **306/335**（复制布局进 `:app` 只为接 ViewBinding，不动这个数）。
+**没重建的**：zxing 二维码绘制（`QrCodeRenderer.Pending` → 装包后 QR 卡片是空白的）、LoadingDialog 画面、
+微信/QQ 分享本体、QR png 上传、`ContactInfoListActivity`/`QRCodeScanActivity`、埋点汇、同意后 IM 侧效应，
+以及 XXPermissions（用 androidx contracts 等价复刻，两处差异已记待验）。详见 `report/21`。
