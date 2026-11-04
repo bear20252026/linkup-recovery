@@ -6,8 +6,8 @@
 
 前三屏留了六个"只记录意图、不弹东西"的空位。这一轮把弹窗本体做出来，六个动作当场可点：
 删除确认、改关系、改备注、改权限、配额提示（两处入口）。
-`FriendInfoDialogs` 这个临时接口被删掉，`FriendFlowNavigation.showFriendNumLimitDialog` /
-`showPermissionSettings` 从空实现换成真弹窗。
+`FriendInfoDialogs` 接口**保留**（它是测试注入用户选择的口子），新增 `RealFriendInfoDialogs` 作线上实现；
+`FriendFlowNavigation.showFriendNumLimitDialog` / `showPermissionSettings` 从空实现换成真弹窗。
 
 ## 二、必须先说清楚的：窗口库是**真·子集**，不是原样 1:1
 
@@ -39,9 +39,9 @@
 
 ## 四、接上线的地方，以及故意没接的
 
-* `FriendInfoActivity.dialogs` 默认改成真弹窗。新增一条**生产路径**测试：当场点删除键 → 量出真
-  ConfirmDialog 的标题（`确认删除该好友吗？`）→ 当场点确认 → 请求发出 + 收起 + `finish`。
-  这条测的是线上那条链，不是 mock。
+* `FriendInfoActivity.dialogs` 默认改成真弹窗。新增两条**生产路径**测试（不装假弹窗，直接用线上默认实现）：
+  点删除键 → 量出真 ConfirmDialog 的标题（`确认删除该好友吗？`）→ 点确认 → 请求发出 + 收起 + `finish`；
+  点权限行 → 量出真弹窗的 ✕ 是 GONE（原版这一入口就传 `false`）+ 九个勾选反映当前权限。测的是线上那条链，不是 mock。
 * 申请流 `showPermissionSettings` 换成真弹窗（按原种子：全开、收起 ✕、source=1）；回报 null 才走
   "开 AddResult + finish"。**非 null 分支没有半接线**：`PrivacyRepository.updatePermissions` 的
   "先 POST `friend_sens`、失败再逐类型回灌"两阶段流程属隐私权限那张卡。
@@ -50,9 +50,9 @@
 ## 五、数字与验证
 
 ```
-gradle :app:testDebugUnitTest     82 / 0
+gradle :app:testDebugUnitTest     83 / 0
       ├ 弹窗 + 选择器 14（新增）
-      ├ 好友信息 18（新增那条生产路径测试）
+      ├ 好友信息 19（含两条生产路径测试）
       ├ 我的好友 15、申请列表 18、申请详情 14
       └ 原有布局回归 3
 gradle :net:test                   7 / 0

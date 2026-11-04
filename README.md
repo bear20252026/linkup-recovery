@@ -115,16 +115,15 @@ APK 用的 BRVAH 是 `adapter4`（4.x）而不是 3.0.10。详见 `report/14_fir
 仓储层并回原版的单一 `FriendRepository`。两处偏离原版都有测试钉住：不还原 `parseInt` 的崩溃、
 不假装那两条硬编码中文 toast 有资源。
 
-`:app` 67 tests / 0 failures（好友流四屏合计 47 条），`:net` 7 / 0，APK 内实测含 FriendInfoActivity。
+`:app` 83 tests / 0 failures（好友流四屏合计 66 条），`:net` 7 / 0，APK 内实测含 FriendInfoActivity。
 详见 `report/17_friend_info_screen_CN.md`。
 
 ## 2026-11-03 再更新：共用弹窗层落地，六个动作解绑（窗口库是真·子集）
 
-删除确认 / 改关系 / 改备注 / 改权限 / 配额提示 ×2 当场可点；`FriendInfoDialogs` 临时接口删掉，
-`FriendInfoActivity` 新增一条**生产路径**测试（点删除 → 量出真 ConfirmDialog 标题 → 点确认 → 请求 + finish）。
+删除确认 / 改关系 / 改备注 / 改权限 / 配额提示 ×2 当场可点；`FriendInfoDialogs` 接口保留当测试口子、新增 `RealFriendInfoDialogs` 作线上实现；`FriendInfoActivity` 新增两条**生产路径**测试（点删除 → 真 ConfirmDialog 标题 → 请求 + finish；点权限行 → 真弹窗的 ✕ 按原版传 false 即 GONE）。
 
 必须记住的限制：原版 `XDialog` 有 **2013 行**（宿主 Lifecycle、键盘跟随、动画集、状态栏、~30 个链式 setter），
 本轮只搬了这五个弹窗真正用到的那一层（反射 inflate ViewBinding + 拒绝重复弹出的守卫），
 **别把「五个弹窗可用」读成「组件库可用」**；权限弹窗的"非 null 分支"故意没半接线（两阶段逐类型回灌属隐私权限卡）。
 
-`：app` 82 tests / 0 failures（弹窗 + 选择器 14 条新增），`:net` 7 / 0，APK 实测含四个新类与 5 个活动条目。详见 `report/18_dialog_layer_CN.md`。
+`:app` 83 tests / 0 failures（弹窗 + 选择器 14 条新增），`:net` 7 / 0，APK 实测含四个新类与 5 个活动条目。详见 `report/18_dialog_layer_CN.md`。
