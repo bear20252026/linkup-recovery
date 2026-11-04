@@ -141,3 +141,16 @@ section 读出来的；`showPermissionChannel` 走**三方配置 SDK**（`of.b.f
 诚实的结论：写入方（登录流、IM 好友缓存）与那两个来源还没接，所以**现在装包这三个读数仍是 false/0/false**
 ——但不再是因为代码写死。MMKV 版本 APK 内取不出，按公开 2.2.2 接（已进待验第 21 条）。
 `:app` 92 tests / 0 failures（合计 99），详见 `report/19_local_cache_and_config_CN.md`。
+
+## 2026-11-04 再更新：#16 登录写路径接管——`user2` 终于有地方写了
+
+上一轮我说"装包三个读数仍是 false/0/false，因为没人写"。这轮补写：`KeyValueStore.putString`、
+`UserCache.save/saveToken`（键 `user2` / `token`，默认实例）、`UserRepository.userInfo()` +
+`UserManager(store/refresh/signOut)`。原版的三条关键事实照做：**token 藏在 `User.token` 里**、
+刷新时**先比 VIP 变化再写缓存**（写完就拿不到旧值）、**退出是覆盖空账号而不是删键**。
+`AndroidDeviceContext` 的 token/userId/mainUser 改读同一份缓存，不再是平行存储；
+`channel` 故意没动（真值在 APK 签名块里，没接回前改它等于猜签名输入）。
+
+还剩什么：短信/一键登录屏没重建（号码认证 SDK + `/api/sms/send`，后者我不碰），所以真机今天要么等登录屏、
+要么先 `adb` 灌 token；探针屏已加 `GET api/user/info` → 打印 cached userId/mainUser/isVip/tokenStored 这条可验路径。
+`:app` 101 tests / 0 failures（合计 108），APK 60.6→61.3MB（MMKV native 库所致）。详见 `report/20`。
