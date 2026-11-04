@@ -178,3 +178,33 @@ section 读出来的；`showPermissionChannel` 走**三方配置 SDK**（`of.b.f
 **没重建的**：zxing 二维码绘制（`QrCodeRenderer.Pending` → 装包后 QR 卡片是空白的）、LoadingDialog 画面、
 微信/QQ 分享本体、QR png 上传、`ContactInfoListActivity`/`QRCodeScanActivity`、埋点汇、同意后 IM 侧效应，
 以及 XXPermissions（用 androidx contracts 等价复刻，两处差异已记待验）。详见 `report/21`。
+
+## 2026-11-04 再更新：#19 二维码绘制与加载遮罩——顺手改掉一条我发布出去的错话
+
+上一轮我在 `report/21` 的"没重建清单"里写绘制器是「H 纠错、UTF-8、圆角点阵、可选中心 logo」。这轮把
+`utils/z0.java`（328 行）逐行读完，**四条里错了三条**：实际是 **纠错 Q**（H 属另一条简易生成器）、字符集
+**小写 `"utf-8"`**（值还取自个推常量类）、**正方形模块**（填充系数 1.0，不是圆点）、定位眼是**环形**
+（点半径 1.5 模块 + 环半径 3 模块、线宽 1 模块），而 1.6.6 **恒传 logo=null**。错话已同时更正
+`report/21` 与 `DESIGN_CN`。教训很具体：只读了调用点、没读被调用体，就把参数当已知写进了发布件。
+
+接了 `com.google.zxing:core:3.5.3`，把绘制器拆成 **`plan()` 纯数据版面 + `draw()` 照版面刷 Canvas**。
+拆开的理由不是洁癖而是本机测不了像素：**Robolectric 光栅化不可信**——探针画 6×6 红方块，`getPixels`
+读回中心是白、全场只有 24 个红点；而同一张码用 `int[]` 直接喂 `RGBLuminanceSource` 则秒解。于是改成
+"版面算术逐条断言 + 在测试里把版面重栅格化成 int[] 交给真 zxing 解码"。
+
+顺带证明了一件有价值的事：**原版的环形定位眼真的可扫**——环、间隙、中心点在扫描线上正好给出 finder
+判据要的 1:1:3:1:1。另外两条进了测试：那条 URL 是版本 7 = 45×45 模块、288px 下模块 6px 且自带约 1.5 模块
+内边距；`iv_code` 背景全透明，**白卡片 `scl_code` 本身就是静区的一部分**（140dp 里放 130dp 不是随手写的）。
+
+LoadingDialog 三条事实照搬：窗口 **`FLAG_NOT_FOCUSABLE`**（原版 `setFlags(8,8)`，遮罩不抢输入法焦点）、
+show 起动画 / dismiss 暂停（播 `assets/loading.svga`）、**最短显示时间**推迟立即收起——默认 250ms，
+但 `BaseFrameActivity.showLoading()` 用 `0L` 构造，所以好友屏这条下限实际是关的（规则仍照搬，别的调用点用得到）。
+
+`:app` 153 tests / 0 failures（本卡 +13）、`:net` 10 / 0，合计 **163 全绿**；APK 61.8MB（上轮 59.06MB），
+已核 `MatchCodeQrPainter`、`LoadingDialog`、`zxing Encoder`、`dialog_loading`、`assets/loading.svga` 都在包里。
+业务布局 inflate 仍 **306/335**，无倒退。又踩回一个老坑：**`gradle :app:dependencies` 只解析 POM**，
+zxing 的 jar 得靠 `:app:fetchDebugArtifacts` 才真下载。
+
+**还没做**：真人拿手机扫这块屏（本机只证明版面能被 zxing 读）、扫码屏 `QRCodeScanActivity` 的解码侧（属 #20）、
+1.5.6 的头像嵌码合图（1.6.6 无调用点）、SVGA 观感、微信/QQ 分享本体、QR png 上传 H5、埋点汇、同意后 IM 侧效应。
+详见 `report/22`。

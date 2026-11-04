@@ -132,10 +132,12 @@ APK `59,060,629 B`（≈59.1MB），4277 个条目，`AddFriendActivity`/`Verify
 
 ## 十、诚实清单：本轮**没有**重建的东西
 
-1. **二维码绘制**：原版 `utils/z0.d(url, scale, size, margins, logo)` = `com.google.zxing` + 自绘模块
-   （H 纠错、UTF-8、静区 0、圆角点阵、可选中心 logo，尺寸 115dp）。zxing 不在依赖里 →
-   `QrCodeRenderer.Pending` 返回 null → **装包后 QR 卡片是空白的**，只留 `iv_code` 的位置。自成一张卡。
-2. **LoadingDialog**（播 `loading.svga`）：`showLoading/hideLoading` 只有时序、没有画面。
+> **更正（2026-11-04，见 `report/22`）**：本条当时列的参数写错了三条——实际是 **纠错 Q**（不是 H）、
+> 字符集 **`"utf-8"` 小写**、**正方形模块**（不是圆角点阵）、定位眼是**环形**；1.6.6 还恒传 `logo=null`。
+> 而且这两项随后**都已重建完毕**（zxing 已接、遮罩画面已有），不再是缺口。原文照此更正：
+
+1. ~~**二维码绘制**~~ → 已由 `report/22`（#19）重建：`view/MatchCodeQrPainter.kt`。
+2. ~~**LoadingDialog**~~ → 已由 `report/22`（#19）重建：`pages/common/LoadingDialog.kt`。
 3. **微信/QQ 分享本体**（`utils/h1`、`utils/i0` 缩略图上传、`utils/m`）：**装没装**用包查询等价复现了
    （原版的 `isWXAppInstalled/isQQInstalled` 本来就是包查询），分享调用是空实现。
 4. **QR png 上传 H5**（走 `api/tool/uploadLog` + helper `p1`）：空实现。
