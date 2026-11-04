@@ -236,3 +236,32 @@ zxing 的 jar 得靠 `:app:fetchDebugArtifacts` 才真下载。
 **没做的**：真机那段游标遍历（本机没有可注入的 ContentResolver 假提供者，待验第 36 条）、
 扫码屏 `QRCodeScanActivity`（#20 后半）、空串号码的去留判定、埋点汇、IM 侧效应、微信/QQ 分享本体、渠道号。
 详见 `report/23`。
+
+## 2026-11-04 再更新：#20 后半——扫码屏落地，添加好友的四条找人路径全部闭合
+
+`QRCodeScanActivity` 原版挂着公开库 `com.king.zxing:zxing-lite`（`BarcodeCameraScanActivity`）。这轮
+**故意不接回那个库**：版本从 APK 取不出来（已经欠 MMKV/BRVAH/zxing-core 三笔同类债）、1.6.6 的布局本来就
+直接写 `androidx.camera.view.PreviewView`、而 CameraX 与 zxing-core 都已在依赖里；它替我们做的事只剩
+"预览 + 逐帧解码循环"这薄薄一层。代价写在报告里，没藏。
+
+照搬的行为（每条都有出处）：结果键 `SCAN_RESULT` + `RESULT_OK` + finish、**只解 QR**、
+`cropRatio=1.0`（整帧，库默认 0.8）、**命中一次立即停止分析**、扫描线 **2000ms** REVERSE 无限、
+`argb(153,0,0,0)` 遮罩用 `PorterDuff.CLEAR` 在扫码框上**挖洞**（必须在 `post{}` 里建）、相册走系统
+`ACTION_PICK image/*`、权限按 **SDK≥29 分叉**、相册图两遍解码按 **800×800** 定 `inSampleSize`、命中震动。
+清单四条权限（含 `READ_EXTERNAL_STORAGE maxSdkVersion=32`）**都先核过 1.6.6 原样**。
+
+两个"原来如此"：① 那条降采样循环比的是**一半**的尺寸，所以 4000×3000 对 800×800 的答案是 **2 不是 4**
+（我自己第一版期望就写错了，被测试纠正）；② 本机 Robolectric 光栅化不可信这件事**又撞上一次**，于是把
+#19 的"版面→像素"栅格化提成测试共享工具，换来一条真端到端：**画码器排的版面 → 像素 → 真解码器解回同一串**，
+外加一条负向测试（全白位图必须解不出）。
+
+诚实记账：原版配置链 `p(false)/m(0)/u(true)` 三个开关**没有库源码定不了名**，我只实现了有 `VIBRATE` 权限
+作旁证的"命中震动"，其余没猜也没瞎起名（待验第 38 条）。
+
+接线完成：添加好友屏**用结果启动器**发扫码（原版就是 `B.launch`），结果喂给早已测过的判定树；
+`openQrScanner()` 也换成真启动。至此 #15 留的两条空跳转全部闭合。
+
+`:app` 190 tests / 0 failures（本卡 +14）、`:net` 10 / 0，合计 **200 全绿**；APK 61,848,174 B，已核
+`QRCodeScanActivity`/`QrDecoder`/`ScanMaskDrawable`/布局在包里、`com/king` 不在；业务布局 inflate
+仍 **306/335** 无倒退。**没做的**：真机预览与逐帧解码、闪光灯与遮罩观感、相册完整链路、三个未命名开关、
+埋点汇、`AgreeAddActivity`、IM 侧效应；另外**渠道号与通讯录空串号码这两件仍在等你拍板**。详见 `report/24`。
