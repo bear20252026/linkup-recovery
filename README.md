@@ -127,3 +127,17 @@ APK 用的 BRVAH 是 `adapter4`（4.x）而不是 3.0.10。详见 `report/14_fir
 **别把「五个弹窗可用」读成「组件库可用」**；权限弹窗的"非 null 分支"故意没半接线（两阶段逐类型回灌属隐私权限卡）。
 
 `:app` 83 tests / 0 failures（弹窗 + 选择器 14 条新增），`:net` 7 / 0，APK 实测含四个新类与 5 个活动条目。详见 `report/18_dialog_layer_CN.md`。
+
+## 2026-11-04 再更新：#11 本地缓存与配置读数——读的那一半接上了
+
+前三屏留的三个假默认值不再是写死：`isVip` 从 MMKV 默认实例的 `user2`（规则 `vipSubType>0` 或
+`shareToMeList` 任一 >0）、好友数从"以 userId 命名"的实例里的 `friendList`、权限开关走原版那条
+"渠道号命中列表或含通配 -1"的规则。键名有 9 条测试专门钉住——**键写错不会报错，只会永远读成默认值**。
+
+两处"值从哪来"当场查清：渠道号是原版把**自己的 APK 当 zip 打开**、从签名块里魔数 `1903654775` 的自定义
+section 读出来的；`showPermissionChannel` 走**三方配置 SDK**（`of.b.f("android-watcher","156")`），
+不是我们自己的 `clientConfig`（用生产回包样本核过，那里面没这个键）。两条都留成可注入接缝。
+
+诚实的结论：写入方（登录流、IM 好友缓存）与那两个来源还没接，所以**现在装包这三个读数仍是 false/0/false**
+——但不再是因为代码写死。MMKV 版本 APK 内取不出，按公开 2.2.2 接（已进待验第 21 条）。
+`:app` 92 tests / 0 failures（合计 99），详见 `report/19_local_cache_and_config_CN.md`。
