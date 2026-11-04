@@ -102,3 +102,18 @@ APK 用的 BRVAH 是 `adapter4`（4.x）而不是 3.0.10。详见 `report/14_fir
 现在按花括号范围分字段、从 `renamed from:` 注释取回真名：9 个嵌套 bean 恢复。
 
 `:app` 49 tests / 0 failures（好友流三屏 46 条），`:net` 7 / 0，APK 内实测含 MyFriendActivity。详见 `report/16`。
+
+## 2026-11-03 再更新：第四屏「好友信息」跑通，四个写动作里三个已是真端点
+
+资料/备注/关系/权限摘要/聊天/删除 + 一条 IM 推送覆盖层。端点是按调用点解出来的（1.5.6 连 Retrofit
+注解都被混淆成 `@o/@f/@t`）：`relation/info?queryId`、`relation/del{friendId}`、
+`relation/update{friendId,relation}`、`relation/update_remark{friendId,remark}` 已接并已测；
+权限更新是"先 POST friend_sens，失败再逐类型回灌"的两阶段流程，**有意没有半接线**。
+
+还原要点里最容易写错的三条：加载失败或 data 为空要退回"非好友"版面（用户名与匹配码改用 Intent 里的值）；
+权限摘要就是数 9 个 sens 开关的 true 个数；改关系/改备注的成功响应 data 是客户端回显自己发的值。
+仓储层并回原版的单一 `FriendRepository`。两处偏离原版都有测试钉住：不还原 `parseInt` 的崩溃、
+不假装那两条硬编码中文 toast 有资源。
+
+`:app` 67 tests / 0 failures（好友流四屏合计 47 条），`:net` 7 / 0，APK 内实测含 FriendInfoActivity。
+详见 `report/17_friend_info_screen_CN.md`。
