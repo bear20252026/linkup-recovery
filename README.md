@@ -300,3 +300,38 @@ zxing 的 jar 得靠 `:app:fetchDebugArtifacts` 才真下载。
 （原版 `SdkInitManager` 启动就拉，这属于"同意隐私前能不能打这个域名"的产品/合规决定）与发布链自动打标。
 **等你拍板**：重建包打哪个渠道号（按线上取 `3305` 最保真）、权限门按 1.6.6 还是退回 1.5.6 配置规则。
 未知项：原包里那个 14 KB 的 `0x504B4453` 段归属、`3305` 是哪个分发渠道。详见 `report/25`。
+
+## 2026-11-05 再更新：#18 前半——登录屏与短信弹窗落地，`user2` 从此有了上游
+
+`LoginActivity` + `LoginSmsDialog` + `SendCodeButton`（60 秒倒计时）+ `PolicyRemindDialog` 全部重建完。
+#16 那条写入通道（`user2` + `token`）从今天起不再只能靠探针屏手动灌。
+
+**这一轮推翻了五条我自己记错的事**，都有逐行出处（`report/26` 第一节是完整对照表）：
+① `typeId` 只有 1/2/3，走 `api/sms/click_to_login`；**微信/QQ 根本不是 typeId**，是另一个端点
+`api/user/login`，body 用 `platform`（4/5）——#15 记的"4=微信 5=QQ"是错的。
+② 登录写入顺序是**先 `user2` 再 `token`**；#16 我写反了，还在注释里自称"顺序重要且已保留"。
+本轮改回，并加了一条**按写入次序断言 key 顺序**的测试，下次再写反就会红。
+③ **1.6.6 把 Mob 整族删了**（`sources/com/mob` 整个不存在），换成子包一一对得上的 `cn.fly.verify.FlyVerify`——
+等于同一套东西换牌；1.5.6 才是 `com.mob.secverify.SecPure`。
+④ `Cut.loginType` 是**字符串**，`toIntOrNull() ?: 1` 交给厂商路由；非 1/3 是"回调 null"，
+再由"号码或运营商为空"才落到短信框——不是"非 1/3 直接弹短信框"。
+⑤ 有一条**不写缓存**的分支：登录回来但昵称为空（或三方登录已注册账号）时，人被寄存在进程全局 `App.user`，
+**只写 token**。这不是 bug，是"资料没补全的人交给补资料屏落地"，所以重建里 `UserManager.inFlight` 是必需品。
+
+两条是实现期自己踩的坑，也一起改了：**`Dialog.getContext()` 带主题时是 `ContextThemeWrapper`**，
+我照抄原版的 `context as? Activity` 于是静默失效——"登录成功后关掉登录页"其实没发生，已提成
+`BindingDialog.hostActivity`；**`KeyValueStore` 原来只有字符串接口**，而 `lastLoginType` /
+`isRequestedNotification` 在原版是 MMKV 的 int/bool，用字符串读的话老用户升级后读不到自己的"上次登录"。
+
+一处**故意不修平**的不一致：QQ 按钮直接点击时原版不禁用，只有走协议提醒弹窗那条续作才
+`setEnabled(false)`。照搬，并写了两条测试分别钉住。
+
+安全边界照旧：全程没调 `/api/sms/send`（那会发真短信），短信与登录路径全是 JVM 假仓库驱动的测试。
+`CountDownTimer` 在 Robolectric 下**根本不投递消息**（实测喂 59 秒标签不动），所以倒计时抽成可注入的
+`SendCodeButton.Countdown`：生产用平台实现，测试手喂 tick——否则这块要么测不到，要么写假绿。
+
+`:app` 235 / 0、`:net` 29 / 0，合计 **264 全绿**（本卡 +38）；APK 61,848,174 B，本卡三份布局 inflate ok，
+业务命名布局仍 **306/335** 无倒退。**#18 后半没做**：一键登录弹窗（两个厂商 jar 都拿不到）、
+`EmptyLoginActivity` 首启隐私门、`ImproveUserInfoActivity` 与 `MainActivity` 两个跳转目标、
+微信 code→`sns/oauth2/access_token`→`platform=4` 那条完整链。**等你拍板新增一条**：
+`POST_NOTIFICATIONS` 现在照搬原版在 `onCreate` 每账号只问一次，要不要挪到首启隐私同意之后。详见 `report/26`。
