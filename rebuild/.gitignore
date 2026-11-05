@@ -7,6 +7,11 @@ local.properties
 *.log
 __pycache__/
 
+# server runtime artifacts: a private key and the account store must never be committed
+*.key
+linkup-store.json
+server/linkup-store.json
+
 # publish-only: keep derived tooling and vendor binaries out of the public repo
 tools/jadx/
 app/src/main/assets/

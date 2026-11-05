@@ -12,6 +12,7 @@
 | apktool_3.0.3.jar | 资源还原工具 |
 | run_all.sh | Mac/Linux 一键脚本（下载+拼合+校验+反编译+打包） |
 | report/ | 项目情况报告 / 可行性报告 / 操作指南 |
+| rebuild/ | 重建工程：客户端（`net`/`app`/`fastkit`）+ 后端第一刀（`server/`，Go 网关 + OpenIMServer 适配层） |
 | notes/ | 公开逆向参考资料 |
 
 ## 校验值（MD5）
@@ -335,3 +336,48 @@ zxing 的 jar 得靠 `:app:fetchDebugArtifacts` 才真下载。
 `EmptyLoginActivity` 首启隐私门、`ImproveUserInfoActivity` 与 `MainActivity` 两个跳转目标、
 微信 code→`sns/oauth2/access_token`→`platform=4` 那条完整链。**等你拍板新增一条**：
 `POST_NOTIFICATIONS` 现在照搬原版在 `onCreate` 每账号只问一次，要不要挪到首启隐私同意之后。详见 `report/26`。
+
+## 2026-11-05 再更新：#21 后端第一刀——Go 网关 + OpenIMServer，17 条路由跑通了
+
+方向按你的决定换了：**关系与消息状态接 OpenIMServer，LinkUp 自有的东西自己做**，服务端用 Go
+（与线上丢失的那个服务同栈）。落点 `rebuild/server/`，覆盖 **17 条路由**：登录 5 + 配置/公钥 2 + 关系域 10。
+**客户端契约一个字节没改**——路径、`{status,msg,data}`、AES 签名（key==IV 的 AES-128-CBC）、裸 JWT、
+四个横杠的 PEM 页脚，全部照 1.6.6 还原出来的形状实现，并有**负向测试**。
+
+家底先摆清楚，免得期待错位：97 条里 OpenIM 能直接顶掉的是**关系域 10 条**＋还没重建的消息/会话面，
+约 12–14 条；剩下 83 条（定位、锁机、截图、纪念日、VIP/支付、风控、上报）任何 IM 项目都不替你写。
+另外现网 IM 用的是**环信 SaaS**（appkey 在我方手里），所以 OpenIM 是"自己掌控"的选项，不是必须换。
+
+**四条这轮才从代码里核出来的事实**（`report/27` 第二节有逐行出处）：
+① `api/relation/confirm` 的 `code` 在 **query**，body 里那份只是重复；
+② `api/user/update/info` 的 body 恰好四键 `avatar/nickname/sex/`**`stage`**，键名分别来自
+`ImproveUserInfoActivity.f65723w="avatar"`、字面量、被复用的百度广告常量 `ArticleInfo.USER_SEX="sex"`、字面量；
+③ `stage` 是"补资料走到第几步"，服务端丢它 ⇒ 每个中途退出的人下次都被打回第一步，**而且不报错**；
+④ OpenIM 两个申请列表的响应键大小写不一致（`FriendRequests` vs `friendRequests`，
+protocol v0.0.73-alpha.12 的 `relation.pb.go:514`/`:2083`）——Go 的大小写兜底刚好接住，测试把两种拼法都钉住。
+
+**四个我自己写出来的 bug，全部当场被抓**：签名中间件在"跳过校验"分支里顺手没读 body ⇒ 登录 body 永远是
+空 map ⇒ 所有登录被自己拒（而我写的拒绝话术还把它伪装成"缺号码认证 SDK"，误导了一轮）；
+`IssueCode(phone, ttl)` 收了 ttl 然后 `_ = ttl` 丢掉 ⇒ 验证码永不过期；三方登录的账号键是我编的
+`"wx4:"+unionId` 塞在 phone 列 ⇒ **微信绑过手机的人再用短信登录会拿到第二个账号**，已改成 `unionId` 独立成列、
+手机来就绑定；`smoke.sh` 自己漏了 query ⇒ 我怀疑了网关两轮，其实是脚本错（副作用是现在有一对
+"签名与实际 query 不一致要拒、一致要过"的用例）。还挖出一条发布链的坑：`publish.sh` 的 `rm -rf` 只列了
+当时的目录名，**本地删掉的文件会在公开仓复活**，已改为整目录清空再解。同一段还有我自己写错的一条：
+本轮新加的目录表里我写了一个 `core-net/`，说它是 1.5.6 那套自研 HTTP 栈，实际那只是个**空目录骨架**
+（0 个文件、构建里没有这个模块、从未进过仓库也从未进过公开仓）；yftracker 旧链路的真实状态仍是
+"尚未接入"。空骨架已删、那行已去掉——"目录 → 职责"这种表以后要逐行对 `git ls-files` 数一遍。
+
+验收：`go test ./...` **34 绿**（contract 6 / gateway 15 / openim 6 / store 7，全离线）；
+`bash rebuild/server/scripts/smoke.sh` **28 绿**——真起进程、真走 TCP、签名由 **openssl** 在 shell 里算，
+于是同一条契约在 **JVM / Go / OpenSSL 三个实现**下对上了。客户端侧复验无倒退：`:net` 29 / 0、`:app` 235 / 0。
+一条差点被吞掉的验收事故：`gradle … | tail` 之后的 `$?` 是 `tail` 的 0，我第一次就是这么跑的，
+屏幕没有 FAILED 而实际是 **BUILD FAILED**——真退出码必须从被测命令自己取。顺带发现
+`:fastkit:testDebugUnitTest` 本身是坏的（AAPT 缺 Material 属性），而该模块**零测试源**，已从回归命令里去掉。
+
+**没跑的就是没跑**：OpenIM 真容器栈一次都没起过——C 盘只剩 7.2 GB（99% 满）而 Docker data-root 在 C，
+那套镜像解压 2.5–3.5 GB。所以 `internal/openim` 只有 httptest 打桩，"网关 ↔ 真服"记在待验 **47–49**，
+不计入绿。smoke 里甚至**故意**把 `-openim` 指到死端口，用来证明不可达时答 `status:500 服务暂时不可用`，
+而不是一个看起来像成功的空好友列表。安全边界照旧：这一刀**物理上发不出短信**（没有任何短信通道），
+`-dev` 之外拒绝公开的 demo 密钥，RSA 私钥与 store 文件已进 `.gitignore`。
+另有**一处刻意与线上不同**：生产网关实测不校验 Signature，重建版默认校验（待验 51 要你/运维拍板）。
+详见 `report/27` 与 `rebuild/server/README.md`。
