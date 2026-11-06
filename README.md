@@ -453,3 +453,36 @@ wildcard: java.util.Map<String, ?>`。Retrofit 在调用那一刻校验泛型类
 `gatewayVerify`（客户端↔网关）**30 绿**。待验新增 53–57（`Info` 那 13 个给不出值的键、老账号 id 位数分布、
 几个布尔的原始算法、apply 时申请方 sensSetting 存不存、map 构造改动对逐字节抓包的影响），
 26 改为"对我们自己的后端已验、线上真实页脚仍未验"。详见 `report/29`。
+
+## 2026-11-05 再更新：#22 前半——定位域服务端（上报 → 按天 → 当天轨迹），服务端 49 绿、会师检查 46 绿
+
+轨迹页与首页地图卡在 `com.baidu.mapapi.map.MapView`（Maven Central 没有，本机取不到），所以这一刀
+把**数据面**做实：设备上报位置 → 服务端存下并按天归日 → 轨迹页读某天时拿到折线、事件行和三个汇总数字，
+而且**别人不能随便看**。新增 3 条路由，网关累计 20 条（GET 11 / POST 9）。
+
+形状没有一样是设计出来的，全部对着客户端怎么用它反推：`totalDistance` 是**米**
+（界面 ÷1000 后拼 "km"，`TrackRecordFragment.java:181`）、`totalStayTime` 是**秒**（:164 ×1000）、
+`timePeriod` 是 epoch 秒（:280 `Date(timePeriod*1000)`）；`line.type` 的 1/2/3/4 就是分支里的四个文案与图标
+（`less_than_1m` / `less_than_200m` / 无法获取定位 / 没有新定位）——所以"≤1 米算还在同一段停留"这个阈值
+是客户端自己给的；`track.type` 2=到达、3=离开，且行只在 `lostType==0` 时才渲染；
+`bean/Address` 只有六个键、**没有整串地址字段**，可见整串地址一直是服务端拼的；
+`api/location/report` 的 body 是 `Location` bean 本身（10 键含 `type`），不是 map（`gh/a.java:401`）。
+
+**三个服务端量做成 flag，不写成"看起来像恢复值"的常量**：`-stay-seconds`（停留多久算一个到达点）、
+`-gap-seconds`（沉默多久算没有新定位）、`-loc-timezone`（一天从哪个时区算，默认 Asia/Shanghai）。
+有一条测试专门把阈值改成 600 秒：四分钟的停留不再算到达点，但停留秒数仍要记满 240——证明是真参数。
+顺带一个平台事实：Windows 构建的 Go 没有内嵌 tzdb，`LoadLocation` 会失败，所以退回固定 +08:00
+而不是让服务起不来。
+
+**权限**：自己永远可以；他人必须有任一方向的关系。拒绝 = HTTP 200 + 信封 `status=403` + 文案
+（403 是我定的码——客户端只判 `status != 200` 并 toast `msg`，原服务端的码不可观测，这点写进代码注释）。
+会师检查里有一条时序断言：关系删除之后再读对方轨迹必须被拒。
+
+**两条路由故意没做**（不是漏）：`batch/report` 在 1.6.6 全树找不到调用点，body 键名没有依据；
+两个 widget 接口要先有"配对的另一人"模型与 `FriendState` 设备态（属敏感事件域）。记待验 58/59。
+
+另外修了 `:net` 一处遗留：`TrackRecordBean.points/tracks` 之前是 `List<JsonElement?>`（生成器没解析
+嵌套 bean），换成 `List<TrackRecordBean.Point?>?` / `…Track?>?`——不然轨迹页拿到的是原始 JSON 片段。
+
+数字：定位算法 9 绿 + 定位路由 4 绿，`go test ./...` **49 绿**；客户端 **266 绿**；死 IM smoke 28 绿；
+真 OpenIM 端到端 20 绿；`gatewayVerify` **46 绿**（定位链 16 条，全部由客户端真 bean 解出来）。详见 `report/30`。
