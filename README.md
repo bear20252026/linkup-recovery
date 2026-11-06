@@ -416,3 +416,40 @@ bash 不报语法错、只是 `dirname` 带 `\r` 走错目录，已用 `.gitattr
 
 **下一刀**：客户端 baseUrl 指过来，两台真机走一遍加友——那才能判定待验 50（三方登录的 `isRegister`
 到底答什么）。详见 `report/28`。
+
+## 2026-11-05 再更新：#21 尾声——重建客户端与重建网关第一次会师（30 条全绿），当场抓出三条"各自都绿、合起来才炸"
+
+前面所有绿都是**单侧**的：`:net` 证明"客户端按我以为的形状发/收"，`server` 证明"服务端按我以为的形状发/收"。
+这一轮把两个"我以为"接在一起：`gradle :net:gatewayVerify` 用**真 Retrofit 接口 + 真签名拦截器 + 真 Gson 模型**
+打重建网关（网关再打真 OpenIMServer），**30 条检查全绿**（`CLIENT_MEETS_OWN_SERVER=1`）。
+
+三条错没有一条是任何单侧测试能发现的：
+
+① **`@Body Map<String, Any?>` 让 40 条 POST 一调用就抛** `Parameter type must not include a type variable or
+wildcard: java.util.Map<String, ?>`。Retrofit 在调用那一刻校验泛型类型，而 Kotlin **只读** `Map` 的值参数是
+协变的（`out V`）⇒ 编译成通配符。原版 class 文件的签名是 `java.util.Map<String, Object>`
+（`gh/a.java:293`），也就是**不变**的 `MutableMap`——问题在变型，不在可空。已改接口 40 处 + 调用点 16 处，
+并加 `BodyParameterTypesTest` 反射遍历所有 `@Body` 参数（**改之前先跑，两条都是红的**）。
+为什么 235 条 Robolectric 全绿也看不见：屏幕测的是假仓库，真 Retrofit 方法从没被调用过。
+
+② **"匹配码"就是 userId，而且 id 必须 8 位**：`AddFriendActivity.java:862-864` 显示的是
+`String.valueOf(user.userId)` 每 4 位插空格，`MATCH_CODE_LENGTH==8` 决定满 8 位才当匹配码，
+`User` bean 里根本没有第二个码字段。我服务端不但另造了一个随机 8 位 `matchCode`，还从 **10001** 起号
+——5 位 id 在客户端第一条判断就被 toast 拒掉，**请求根本发不出去**。已删掉那套码、`firstUserID=10000001`。
+
+③ **好友列表那一行的 bean 和详情的 bean 不是一套字段**：列表 `FriendList.Info` 用 `createAt`（**秒**，
+客户端 `Date(createAt*1000L)`）、`relation`/`sex` 是**数字**、而且**没有 permission 对象**（只有一个绑勾选框的
+`permissionValue`）；详情 `FriendInfo` 那边 `relation`/`sex` 才是字符串。我按详情的形状发列表 ⇒ 客户端静默读 0。
+同一个坑的镜像面也修了：`Extra.Since` 我写成 `UnixMilli()` ⇒ 关系详情会显示成**公元五万多年**，现在全链路秒。
+
+**更正一条我上一轮说错的**：我说过"Windows 打不到 WSL 的端口（NAT）"——那是撞上了容器被 VM 回收后的重启窗口。
+重测 `http://127.0.0.1:10002` 从 Windows 直接 200 通，本轮网关就正常跑在 Windows 上。
+
+**另外**：Gson 的 `serializeNulls` 默认关 ⇒ map 里的 null 值**连键一起丢**，所以原版
+`"phone" to null` 在网上就是"没有 phone 键"，服务端不必区分（这条决定了网关怎么读手机号）。
+
+验收矩阵现在是六层：`:net` 31 + `:app` 235 = **266 绿**（+2 是那条签名门禁）、`go test ./...` **36 绿**、
+`smoke.sh`（死 IM）**28 绿**、`openim-e2e.sh`（真栈）**20 绿**、`-run Live`（真服集成）**3 绿**、
+`gatewayVerify`（客户端↔网关）**30 绿**。待验新增 53–57（`Info` 那 13 个给不出值的键、老账号 id 位数分布、
+几个布尔的原始算法、apply 时申请方 sensSetting 存不存、map 构造改动对逐字节抓包的影响），
+26 改为"对我们自己的后端已验、线上真实页脚仍未验"。详见 `report/29`。
