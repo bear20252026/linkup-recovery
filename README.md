@@ -381,3 +381,38 @@ protocol v0.0.73-alpha.12 的 `relation.pb.go:514`/`:2083`）——Go 的大小�
 `-dev` 之外拒绝公开的 demo 密钥，RSA 私钥与 store 文件已进 `.gitignore`。
 另有**一处刻意与线上不同**：生产网关实测不校验 Signature，重建版默认校验（待验 51 要你/运维拍板）。
 详见 `report/27` 与 `rebuild/server/README.md`。
+
+## 2026-11-05 再更新：#21 后半——真 OpenIM 跑通了，服务器当场纠正我四条
+
+按你"迁移到 D"的指示做的，但**没搬 Docker Desktop 的盘**（改它私有配置风险大、会丢你现有镜像）。
+改成把 Ubuntu 官方 WSL rootfs（先校验 sha256）`wsl --import` 成装在 **D:\linkup-im\** 的独立发行版，
+里面自己跑 dockerd：mongo/redis/etcd/kafka/minio/`openim-server:v3.8.3-patch.18` 全在那里，
+**C 盘零增量**，要撤就 `wsl --unregister linkup-im` 一条命令。
+
+这一轮的价值不在"跑通了"，在**跑通过程中服务器当面纠正了我四条**——打桩测试一条都抓不到：
+① `get_admin_token` 的 `userID` 是**字符串**，我照 `repeated` 的想当然发成数组 ⇒ **每一次 IM 调用都拿不到
+令牌**，整套关系功能 100% 不可用（协议模块里它本来就是 `string`，是我读错）；
+② `is_friend` 的请求字段是 **userID1/userID2**，我发的 `ownerUserID` 被 `ArgsError: userID1 is empty` 拒；
+③ `is_friend` 回的是 **`inUser1Friends`/`inUser2Friends` 两个方向的旗标**，我读的 `isFriend` 不存在 ⇒ 恒 false；
+④ **`delete_friend` 是单向的**：删完 B→A，A 那边 `inUser2Friends` 还是 true ⇒ "好友在另一台手机上复活"，
+现在两个方向都删并有测试钉住。另有两条只有真服能给的口径：**不传 `handleResults` = 不过滤**
+（未读数只能自己按 `handleResult==0` 数），**重复注册回 1102 RegisteredAlreadyError**
+（我原来的 `IsAlreadyKnown` 只认 "exist"，接不住 ⇒ 正常情况被记成失败）。
+
+顺带抓出两个我自己的实现错：`Extra.Since` 写成 `UnixMilli()`，而客户端做 `Date(createAt*1000L)`
+⇒ 关系详情显示成公元五万多年（全链路统一成秒 + 测试钉单位区间）；我的补丁脚本被 Python 写成 CRLF，
+bash 不报语法错、只是 `dirname` 带 `\r` 走错目录，已用 `.gitattributes` 把 `*.sh`/`*.go` 锁成 LF
+（`*.go` 那条还顺带消掉 Windows 上 `gofmt -l` 12/12 的假警报）。
+
+验收矩阵现在是四层：离线 **36 个 Go 测试**（Windows 与 Linux 各跑一遍）、真进程接**死 IM** 的
+**28 条 smoke 用例**（证明不可达时报错而不是报空列表）、**真栈端到端 20 条全绿**、
+**3 个在线集成测试全绿**（没真服时自动 skip，不拖红离线套件）。OpenIM 的原始应答没做加工，
+原样存在 `recovered/openim_live_evidence_2026-11-05/`。待验 **47/48/49 划掉**。
+
+环境侧三条会反复撞上的事实：**WSL 是 NAT 且没有 IPv6 路由**（DNS 只回 AAAA，`curl` 0 秒失败像断网）、
+**Docker Hub 直连不通**（`docker.1ms.run` 可用，`daocloud` 对 `openim/*` 回 403）、
+**这台机 WSL 空闲就回收 VM**（所以"起栈→等 healthy→跑验收"必须一次调用跑完，否则容器反复重启、
+10002 时通时断，验收会莫名其妙红一片）。
+
+**下一刀**：客户端 baseUrl 指过来，两台真机走一遍加友——那才能判定待验 50（三方登录的 `isRegister`
+到底答什么）。详见 `report/28`。
