@@ -486,3 +486,46 @@ wildcard: java.util.Map<String, ?>`。Retrofit 在调用那一刻校验泛型类
 
 数字：定位算法 9 绿 + 定位路由 4 绿，`go test ./...` **49 绿**；客户端 **266 绿**；死 IM smoke 28 绿；
 真 OpenIM 端到端 20 绿；`gatewayVerify` **46 绿**（定位链 16 条，全部由客户端真 bean 解出来）。详见 `report/30`。
+
+## 2026-11-06 再更新：#23 定位抽象层——一家接口 + 各家 SDK 与 API，`:location` 93 绿、客户端三层 367 绿
+
+用户这一轮的要求很具体：**"我要一个那种抽象的。定位。他可以兼容各家的 sdk。和 apI。把它单独儿变成一个接口。"**
+于是新增 `rebuild/location/` 模块：`LocationProvider`（follow / `singleFix` / `update` / `stop` / `lastFix`）、
+`PlaceResolver`（地址↔坐标）、`LocationGateway`（上报 API 侧），三家实现——系统 `LocationManager`（今天真能跑）、
+百度（**反射绑定**，签名逐条钉到 APK 反编译行号，测试用同签名替身跑**生产反射代码**）、测试假源。
+接口层零三方依赖，并由 `LocationLayerIndependenceTest` 把门：src/main 里出现厂商包名就红。
+
+切分点来自原版自己：**1.6.6 的 `dg/a.java` 已经把配置抽成不可变 `Snapshot(locationMode, scanSpan)`**，
+`update()` 相同返回 null，其余十三个百度字段是常量。所以 `LocationRequest` 只带会变的两个，
+厂商私有常量留在适配器——换 SDK 时不需要重新谈判的那条缝，原版早就画好了。
+
+这轮最值钱的一条事实：**bean 里存的是 WGS84，SDK 给的是 bd09ll**，换算发生在回调入口
+（`x0.java:290` 的 `h0.c`），要算距离时才 `getLatLng09()` 换回去。为了让这件事不是"我觉得等价"，
+把原包 `h0.java` 的算术抄成临时 Java **在 JDK 上真跑出 46 行样本**（`rebuild/recovered/geo_golden_156.txt`），
+`GeoMathTest` 逐行复现全部 40 个数值；适配器还从 `BDLocation.getCoorType()` 读坐标系而不是假定。
+
+测试当场抓出我五条错，全部已修——这就是"打桩绿"和"真跑绿"的差距：
+① `Method.invoke` 对 **void 方法返回 null**，我拿返回值判成败 ⇒ 每次成功都被当失败，百度源根本 start 不起来；
+② **嵌套枚举二进制名只有一个 `$`**，我写成两个 ⇒ `locationMode`/`firstLocType` 静默设不上，
+   现在 `buildOption` 对任何缺失成员直接失败并写 `missingReason`；
+③ `unregisterLocationListener` 是**我凭语义编的**——两版 APK 的 `LocationClient` 都只有两个 register 重载，
+   没有注销（这也解释了原版为什么全进程只建一个 client）；
+④ `SystemLocationProvider.singleFix` **成功后泄漏框架注册**（只在取消路径清理）；
+⑤ `Location.getId()` 在 compileSdk 34 不可见 ⇒ `providerId` 恒为 `"system"`，改用 `location.provider`。
+
+节律逐字移植 `x0.java:156-158` 的 `a(speed)`（40m 距离预算÷速度，夹在 5..20s），并把单位陷阱写在类型上：
+原版**只在 `locType==61`** 时把 km/h 除以 3.6，其他定位类型一律记 0 ⇒ "静止"由厂商类型决定；框架源不除。
+弄错就是线上上报频率差 3.6 倍。**`x0.java:164-265` 的停留/离开状态机本轮明确没搬**（JADX 寄存器复用严重，
+硬抄只会产出"看着像、数字不对"的实现），所以 `type` 一律发 0，服务端 `Summarise` 照常算得出停留与离开。
+十七个定位远程配置键连同默认值入表（`manager/l.java:64-80`），`RemoteConfig.number()` + `LocationTuning.fromConfig`
+按键覆盖、缺键保留原包兜底。抄录时发现**原版自己一处可疑**：`x0.java:242` 用 `stayDistanceThreshold`（200m）
+判"潜在停留范围外"，而语义应是 `potentialStayDistanceThreshold`（20m）——差 10 倍，进待验 62 等人定。
+
+`:app` 接上真实现：`LinkUpLocationGateway`（发出去的是线上那份十键 `Location` bean，坐标 WGS84）、
+`LocationSources`（Baidu 优先、系统兜底）、`RecoveryProbeActivity` 多一段只读检查——选到哪家、阈值真值、
+`Geocoder` 到底能不能用，这三条只有手机能答（待验 62/64/65/66）。
+
+数字：`sh tools/gradle.sh :location:testDebugUnitTest` **93 绿**（Baidu 反射 23 / 坐标黄金样本 14 /
+节律与采集 17 / 系统源 16 / Geocoder 10 / 选择回退 7 / 架构门禁 6）；`:net` 31 + `:app` 243 = **274 绿**
+（本轮新增 8 条上报形状与配置阈值）；三层合计 **367 绿，0 skip**。`go test ./...` 49 绿——服务端本轮没动，
+`smoke.sh` 与 `gatewayVerify` 同理没重跑，不把旧结果当本轮结论。详见 `report/31`。
